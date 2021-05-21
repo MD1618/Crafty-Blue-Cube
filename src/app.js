@@ -7,96 +7,82 @@ import * as dat from 'dat.gui';
 function main() {
     const canvas = document.querySelector('#c');
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    let mouseCoords = {
+        x: 0,
+        y: 0
+    }
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const cubeWidth = width / 6;
+    const cubeHeight = height / 6;
+    console.log(width, height)
 
     const fov = 60;
     const aspect = 2; // the canvas default
     const near = 0.1;
     const far = 5000;
-    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = -120;
-    camera.position.x = -120;
-    camera.position.y = 70;
+    //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    const camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 0.1, 10000);
+    camera.position.z = 400;
+    camera.position.x = 0;
+    camera.position.y = 0;
 
     const boxGap = 1.6;
 
     let cubes = [];
 
-    const controls = new OrbitControls(camera, canvas);
-    controls.enableDamping = true;
-    controls.target.set(0, -10, 0);
-    controls.update();
 
-    const gui = new dat.GUI();
 
     const scene = new THREE.Scene();
 
-    {
-        const color = 0xaaaaFF;
-        const intensity = 7;
-        const lightDirectional = new THREE.PointLight(color, intensity, 1000);
-        lightDirectional.position.set(-140, 180, -140);
-        scene.add(lightDirectional);
+
+    const color = 0xddddFF;
+    const intensity = 7;
+    const ambientLight = new THREE.AmbientLight(color);
+    ambientLight.position.set(100, 100, 100);
+    //  scene.add(ambientLight);
+
+
+
+    const intensity2 = 0.4;
+    const light2 = new THREE.PointLight(color, intensity2, 10000);
+    light2.castShadow = true;
+    //Set up shadow properties for the light
+    light2.shadow.mapSize.width = 2048; // default
+    light2.shadow.mapSize.height = 2048; // default
+    light2.shadow.camera.near = 0.1; // default
+    light2.shadow.camera.far = 5000; // default
+    light2.shadow.bias = 0;
+
+    //light2.position.set(10, 15, 14);
+    scene.add(light2);
+
+    onmousemove = function(e) {
+        //console.log("mouse location:", e.clientX, e.clientY)
+        // mouseCoords.x = e.clientX;
+        // mouseCoords.y = e.clientY;
+        light2.position.set(e.clientX - width / 2, ((e.clientY - height / 2) * -1), 250);
+        // console.log(light2.position);
+        // light2.updateMatrix();
+        // light2.updateMatrixWorld();
     }
 
-    {
-        const color = 0xaa55FF;
-        const intensity = 4;
-        const light = new THREE.PointLight(color, intensity, 100);
-        light.position.set(10, 15, 14);
-        scene.add(light);
-    }
-
-    {
-        const color = 0xFFFFFF;
-        const intensity = 3;
-        const light2 = new THREE.PointLight(color, intensity, 100);
-        light2.position.set(-5, 5, 4);
-        scene.add(light2);
-    }
-
-    {
-        const color = 0xFFFFFF;
-        const intensity = 1;
-        const light3 = new THREE.PointLight(color, intensity, 100);
-        light3.position.set(11, 5, -8);
-        scene.add(light3);
-    }
 
 
-    {
-        const color = 0xFFFFFF;
-        const intensity = 4;
-        const light5 = new THREE.PointLight(color, intensity, 100);
-        light5.position.set(60, 80, 50);
-        scene.add(light5);
-    }
-
-    const PointLight4 = new THREE.PointLight(0x00ee00, 1, 100);
-    PointLight4.position.set(4, -2, 10);
-    scene.add(PointLight4);
-
-    const boxWidth = 4;
-    const boxHeight = 4;
-    const boxDepth = 4;
+    const boxWidth = cubeWidth;
+    const boxHeight = cubeHeight;
+    const boxDepth = 40;
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-    class ColorGUIHelper {
-        constructor(object, prop) {
-            this.object = object;
-            this.prop = prop;
-        }
-        get value() {
-            return `#${this.object[this.prop].getHexString()}`;
-        }
-        set value(hexString) {
-            this.object[this.prop].set(hexString);
-        }
-    }
+
 
     const material = new THREE.MeshPhongMaterial({
-        color: 0x334455,
-        transparent: true,
-        opacity: 0.2,
+        color: 0xffffff,
+        // transparent: true,
+        // opacity: 0.8,
         depthWrite: true,
         depthTest: true
     });
@@ -104,6 +90,9 @@ function main() {
     function makeInstance(geometry, x, y, z) {
 
         const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true; //default is false
+        cube.receiveShadow = true; //default
+        cube.material.flatShading = true;
         scene.add(cube);
 
         cube.position.x = x;
@@ -117,25 +106,14 @@ function main() {
         return cube;
     }
 
-    const folder = gui.addFolder(`Cubes`);
-    folder.addColor(new ColorGUIHelper(material, 'color'), 'value')
-        .name('color')
-        // .onChange(requestRenderIfNotRequested);
-        // folder.add(cube.scale, 'x', 3.2, 1.5)
-        //     .name('scale x')
-        //     .onChange(requestRenderIfNotRequested);
-        // folder.add(cube.scale, 'y', .1, 1.5)
-        //     .name('scale y')
-        //     .onChange(requestRenderIfNotRequested);
-    folder.open();
+
 
     function makeArray() {
-        let squareEdge = 16;
-        for (let i = -8; i < squareEdge / 2; i++) {
-            for (let j = -8; j < squareEdge / 2; j++) {
-                for (let k = -8; k < squareEdge / 2; k++) {
-                    makeInstance(geometry, (i * boxWidth * boxGap), (j * boxHeight * boxGap), (k * boxDepth * boxGap));
-                }
+        let squareCount = 6;
+        for (let i = squareCount / -2; i < (squareCount / 2) + 1; i++) {
+            for (let j = squareCount / -2; j < (squareCount / 2) + 1; j++) {
+                let raised = i * j % 2 ? 10 : 0;
+                makeInstance(geometry, (i * cubeWidth), (j * cubeHeight), raised);
             }
         }
     }
@@ -167,18 +145,18 @@ function main() {
             camera.updateProjectionMatrix();
         }
 
-        scene.rotation.y += 0.001;
+        //scene.rotation.y += 0.001;
 
-        for (let index = 0; index < cubes.length; index++) {
-            cubes[index].rotation.z += 0.01;
-            cubes[index].rotation.y += 0.01;
-            cubes[index].rotation.x += 0.01;
-            //cubes[index].material.opacity = Math.sin(1 * index);
+        // for (let index = 0; index < cubes.length; index++) {
+        //     cubes[index].rotation.z += 0.01;
+        //     cubes[index].rotation.y += 0.01;
+        //     cubes[index].rotation.x += 0.01;
+        //     //cubes[index].material.opacity = Math.sin(1 * index);
 
-        }
+        // }
 
 
-        controls.update();
+        // controls.update();
         renderer.render(scene, camera);
         requestAnimationFrame(render);
     }
