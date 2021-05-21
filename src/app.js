@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
-
+import gsap from "gsap";
 
 
 function main() {
@@ -56,18 +56,32 @@ function main() {
     light2.shadow.camera.near = 0.1; // default
     light2.shadow.camera.far = 5000; // default
     light2.shadow.bias = 0;
-
+    console.log(light2);
     //light2.position.set(10, 15, 14);
     scene.add(light2);
 
     onmousemove = function(e) {
-        //console.log("mouse location:", e.clientX, e.clientY)
-        // mouseCoords.x = e.clientX;
-        // mouseCoords.y = e.clientY;
-        light2.position.set(e.clientX - width / 2, ((e.clientY - height / 2) * -1), 250);
-        // console.log(light2.position);
-        // light2.updateMatrix();
-        // light2.updateMatrixWorld();
+        light2.position.set(e.clientX - width / 2, ((e.clientY - height / 2) * -1), 120);
+    }
+
+    onmousedown = function(e) {
+        // light2.intensity = 1.4;
+        gsap.to(light2, { intensity: 1, duration: 0.4, ease: 'Power1.easeInOut' });
+        // gsap.to(cubes, {
+        //     duration: 1,
+        //     position: { setZ: -10 },
+        //     ease: "power1.inOut",
+        //     stagger: {
+        //         grid: [7, 7],
+        //         from: "center",
+        //         amount: 1.5
+        //     }
+        // });
+    }
+
+    onmouseup = function(e) {
+        gsap.to(light2, { intensity: 0.4, duration: 0.4, ease: 'Power1.easeInOut' });
+        //light2.intensity = 0.4;
     }
 
 
@@ -81,6 +95,8 @@ function main() {
 
     const material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
+        emissive: 0x000002,
+        shininess: 0,
         // transparent: true,
         // opacity: 0.8,
         depthWrite: true,
@@ -101,7 +117,7 @@ function main() {
 
         cubes.push(cube);
 
-
+        console.log(cubes[0]);
 
         return cube;
     }
