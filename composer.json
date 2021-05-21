@@ -1,0 +1,10 @@
+{
+    "name": "three/boilerplate",
+    "authors": [
+        {
+            "name": "Martin Drahony",
+            "email": "martin@mdrahony.online"
+        }
+    ],
+    "require": {}
+}
