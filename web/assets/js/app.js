@@ -21,62 +21,62 @@ function main() {
     canvas: canvas,
     antialias: true
   });
-  var fov = 75;
+  var fov = 60;
   var aspect = 2; // the canvas default
 
   var near = 0.1;
   var far = 5000;
   var camera = new three__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.z = 60;
-  camera.position.x = 40;
-  camera.position.y = 60;
+  camera.position.z = -100;
+  camera.position.x = -100;
+  camera.position.y = 70;
   var controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_1__.OrbitControls(camera, canvas);
   controls.enableDamping = true;
-  controls.target.set(0, 0, 0);
+  controls.target.set(0, -10, 0);
   controls.update(); // const gui = new GUI();
 
-  var scene = new three__WEBPACK_IMPORTED_MODULE_0__.Scene(); // {
-  //   const color = 0xFFFFFF;
-  //   const intensity = 1;
-  //   const light = new THREE.DirectionalLight(color, intensity);
-  //   light.position.set(-1, 2, 4);
-  //   scene.add(light);
-  // }
-
+  var scene = new three__WEBPACK_IMPORTED_MODULE_0__.Scene();
   {
-    var color = 0xaa55FF;
-    var intensity = 4;
-    var light = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(color, intensity, 100);
+    var color = 0xFFFFFF;
+    var intensity = 1;
+    var lightDirectional = new three__WEBPACK_IMPORTED_MODULE_0__.DirectionalLight(color, intensity);
+    lightDirectional.position.set(100, 0, -100);
+    scene.add(lightDirectional);
+  }
+  {
+    var _color = 0xaa55FF;
+    var _intensity = 4;
+    var light = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color, _intensity, 100);
     light.position.set(10, 15, 14);
     scene.add(light);
   }
   {
-    var _color = 0xFFFFFF;
-    var _intensity = 3;
-    var light2 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color, _intensity, 100);
+    var _color2 = 0xFFFFFF;
+    var _intensity2 = 3;
+    var light2 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color2, _intensity2, 100);
     light2.position.set(-5, 5, 4);
     scene.add(light2);
   }
   {
-    var _color2 = 0xFFFFFF;
-    var _intensity2 = 2;
-    var light3 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color2, _intensity2, 100);
+    var _color3 = 0xFFFFFF;
+    var _intensity3 = 2;
+    var light3 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color3, _intensity3, 100);
     light3.position.set(11, 5, -8);
     scene.add(light3);
   }
   {
-    var _color3 = 0xFFFFFF;
-    var _intensity3 = 4;
-    var light5 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color3, _intensity3, 100);
+    var _color4 = 0xFFFFFF;
+    var _intensity4 = 4;
+    var light5 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(_color4, _intensity4, 100);
     light5.position.set(60, 80, 50);
     scene.add(light5);
   }
   var PointLight4 = new three__WEBPACK_IMPORTED_MODULE_0__.PointLight(0x00ee00, 1, 100);
   PointLight4.position.set(4, -2, 10);
   scene.add(PointLight4);
-  var boxWidth = 2;
+  var boxWidth = 3;
   var boxHeight = 4;
-  var boxDepth = 1;
+  var boxDepth = 5;
   var geometry = new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(boxWidth, boxHeight, boxDepth); // class ColorGUIHelper {
   //     constructor(object, prop) {
   //         this.object = object;
@@ -92,12 +92,16 @@ function main() {
 
   function makeInstance(geometry, color, x, y, z) {
     var material = new three__WEBPACK_IMPORTED_MODULE_0__.MeshPhongMaterial({
-      color: color
+      color: color,
+      transparent: true,
+      opacity: 0.3,
+      depthWrite: true,
+      depthTest: true
     });
     var cube = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(geometry, material);
     scene.add(cube);
-    cube.position.x = x + 4;
-    cube.position.y = y + 2;
+    cube.position.x = x;
+    cube.position.y = y;
     cube.position.z = z; // const folder = gui.addFolder(`Cube${x}-${y}`);
     // folder.addColor(new ColorGUIHelper(material, 'color'), 'value')
     //     .name('color')
@@ -116,9 +120,11 @@ function main() {
   function makeArray() {
     var squareEdge = 16;
 
-    for (var i = 0; i < squareEdge; i++) {
-      for (var j = 0; j < squareEdge; j++) {
-        makeInstance(geometry, 0x334455, i * boxWidth * 2, j * boxHeight * 1.2, 0);
+    for (var i = -8; i < squareEdge / 2; i++) {
+      for (var j = -8; j < squareEdge / 2; j++) {
+        for (var k = -8; k < squareEdge / 2; k++) {
+          makeInstance(geometry, 0x334455, i * boxWidth * 2, j * boxHeight * 1.2, k * boxDepth * 1.2);
+        }
       }
     }
   }
@@ -149,8 +155,10 @@ function main() {
       camera.updateProjectionMatrix();
     }
 
+    scene.rotation.y += 0.01;
     controls.update();
     renderer.render(scene, camera);
+    requestAnimationFrame(render);
   }
 
   render();
@@ -160,9 +168,9 @@ function main() {
       renderRequested = true;
       requestAnimationFrame(render);
     }
-  }
+  } //controls.addEventListener('change', requestRenderIfNotRequested);
 
-  controls.addEventListener('change', requestRenderIfNotRequested);
+
   window.addEventListener('resize', requestRenderIfNotRequested);
 }
 
