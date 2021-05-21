@@ -4,8 +4,8 @@
   "description": "Three.js Boilerplate Project",
   "main": "webpack.config.js",
   "dependencies": {
-    "three": "^0.128.0",
-    "three-dat.gui": "^2.0.7"
+    "dat.gui": "^0.7.7",
+    "three": "^0.128.0"
   },
   "devDependencies": {
     "laravel-mix": "^6.0.19",
