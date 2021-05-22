@@ -3,6 +3,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
 import gsap from "gsap";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 function main() {
     const canvas = document.querySelector('#c');
@@ -18,7 +22,10 @@ function main() {
     const height = canvas.clientHeight;
     const cubeWidth = width / 6;
     const cubeHeight = height / 6;
-    console.log(width, height)
+    //console.log(width, height)
+
+    const downButton = document.querySelector(".js_down-button");
+
 
     const fov = 60;
     const aspect = 2; // the canvas default
@@ -34,16 +41,18 @@ function main() {
 
     let cubes = [];
 
+    const loader = new THREE.TextureLoader();
+
 
 
     const scene = new THREE.Scene();
 
 
     const color = 0xddddFF;
-    const intensity = 7;
-    const ambientLight = new THREE.AmbientLight(color);
+    const intensity = 0.4;
+    const ambientLight = new THREE.AmbientLight(color, intensity);
     ambientLight.position.set(100, 100, 100);
-    //  scene.add(ambientLight);
+    scene.add(ambientLight);
 
 
 
@@ -84,6 +93,58 @@ function main() {
         //light2.intensity = 0.4;
     }
 
+    const planeHeight = height * 4;
+
+    const geometryPlane = new THREE.PlaneGeometry(width, planeHeight, 32);
+    const materialPlane = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        emissive: 0x000002,
+        shininess: 0,
+        //transparent: true,
+        // opacity: 0.8,
+        depthWrite: true,
+        depthTest: true,
+        map: loader.load('assets/img/bg-texture.jpg'),
+    });
+
+    const plane = new THREE.Mesh(geometryPlane, materialPlane);
+    plane.castShadow = true;
+    plane.receiveShadow = true;
+    scene.add(plane);
+
+    let scroll = {
+        y: 0
+    };
+    downButton.addEventListener("click", () => {
+        window.scrollTo({ top: height, behavior: 'smooth' });
+    });
+
+    // ScrollTrigger.create({
+    //     trigger: ".section-wrapper",
+    //     start: "top top",
+    //     end: "bottom bottom",
+    //     scrub: 1,
+
+    //     // onToggle: self => console.log("toggled, isActive:", self.isActive),
+    //     onUpdate: self => {
+    //         scroll.y = planeHeight * self.progress.toFixed(3) / 2.8;
+    //         // console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
+    //     }
+    // });
+
+    gsap.to(scroll, {
+        y: planeHeight / 2.8,
+        scrollTrigger: {
+            trigger: ".section-wrapper",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            ease: 'Linear'
+
+        },
+        // ease: "Linear",
+        //duration: 0.4
+    })
 
 
     const boxWidth = cubeWidth;
@@ -97,29 +158,32 @@ function main() {
         color: 0xffffff,
         emissive: 0x000002,
         shininess: 0,
-        // transparent: true,
+        //transparent: true,
         // opacity: 0.8,
         depthWrite: true,
         depthTest: true
     });
 
-    function makeInstance(geometry, x, y, z) {
+    function makeInstance(geometry, x, y, z, a, make) {
 
-        const cube = new THREE.Mesh(geometry, material);
-        cube.castShadow = true; //default is false
-        cube.receiveShadow = true; //default
-        cube.material.flatShading = true;
-        scene.add(cube);
+        if (make) {
+            const cube = new THREE.Mesh(geometry, material);
+            cube.castShadow = true;
+            cube.receiveShadow = true;
+            //cube.material.flatShading = true;
+            //cube.material.opacity = a;
+            scene.add(cube);
 
-        cube.position.x = x;
-        cube.position.y = y;
-        cube.position.z = z;
+            cube.position.x = x;
+            cube.position.y = y;
+            cube.position.z = z;
 
-        cubes.push(cube);
+            cubes.push(cube);
 
-        console.log(cubes[0]);
+            //console.log(cubes[0]);
 
-        return cube;
+            return cube;
+        }
     }
 
 
@@ -128,8 +192,10 @@ function main() {
         let squareCount = 6;
         for (let i = squareCount / -2; i < (squareCount / 2) + 1; i++) {
             for (let j = squareCount / -2; j < (squareCount / 2) + 1; j++) {
-                let raised = i * j % 2 ? 10 : 0;
-                makeInstance(geometry, (i * cubeWidth), (j * cubeHeight), raised);
+                let z = i + j % 2 ? -10 : 0;
+                let alpha = i + j % 2 ? 1 : 0.8;
+                let make = i + j % 2 ? false : true;
+                makeInstance(geometry, (i * cubeWidth), (j * cubeHeight), z, alpha, make);
             }
         }
     }
@@ -171,6 +237,8 @@ function main() {
 
         // }
 
+
+        plane.position.y = scroll.y;
 
         // controls.update();
         renderer.render(scene, camera);

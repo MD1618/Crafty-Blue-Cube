@@ -1,7 +1,10 @@
 const mix = require('laravel-mix');
 
-mix.js('src/app.js', 'web/assets/js')
-    .sass('src/app.scss', 'css')
-    .setPublicPath('web/assets');
+mix.setPublicPath('web/assets');
+
+mix.js('src/app.js', 'js')
+    .sass('src/app.scss', 'css');
+
+mix.copy('src/img', 'web/assets/img');
 
 mix.disableNotifications();
