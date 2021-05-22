@@ -42,10 +42,10 @@ function main() {
   var aspect = 2; // the canvas default
 
   var near = 0.1;
-  var far = 5000; //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  var far = 5000;
+  var camera = new three__WEBPACK_IMPORTED_MODULE_3__.PerspectiveCamera(fov, aspect, near, far); //const camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 0.1, 10000);
 
-  var camera = new three__WEBPACK_IMPORTED_MODULE_3__.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 0.1, 10000);
-  camera.position.z = 400;
+  camera.position.z = 800;
   camera.position.x = 0;
   camera.position.y = 0;
   var boxGap = 1.6;
@@ -104,12 +104,13 @@ function main() {
     }); //light2.intensity = 0.4;
   };
 
-  var planeHeight = height * 4;
+  var planeHeight = height * 3;
+  var scrollHeight = planeHeight / 3;
   var geometryPlane = new three__WEBPACK_IMPORTED_MODULE_3__.PlaneGeometry(width, planeHeight, 32);
   var materialPlane = new three__WEBPACK_IMPORTED_MODULE_3__.MeshPhongMaterial({
     color: 0xffffff,
-    emissive: 0x000002,
-    shininess: 0,
+    emissive: 0x110000,
+    shininess: 0.1,
     //transparent: true,
     // opacity: 0.8,
     depthWrite: true,
@@ -141,11 +142,11 @@ function main() {
   // });
 
   gsap__WEBPACK_IMPORTED_MODULE_1__.default.to(scroll, {
-    y: planeHeight / 2.8,
+    y: scrollHeight,
     scrollTrigger: {
       trigger: ".section-wrapper",
-      start: "top top",
-      end: "bottom bottom",
+      // start: "top top",
+      // end: "bottom bottom",
       scrub: true,
       ease: 'Linear'
     } // ease: "Linear",
@@ -159,7 +160,7 @@ function main() {
   var material = new three__WEBPACK_IMPORTED_MODULE_3__.MeshPhongMaterial({
     color: 0xffffff,
     emissive: 0x000002,
-    shininess: 0,
+    shininess: 0.5,
     //transparent: true,
     // opacity: 0.8,
     depthWrite: true,
