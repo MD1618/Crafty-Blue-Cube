@@ -13,11 +13,10 @@
 
 .down-button {
   position: absolute;
-  left: 50%;
+  right: 50px;
   bottom: 100px;
-  transform: translateX(-50%);
   border-radius: 10px;
-  background-color: #666699;
+  background-color: #25252981;
   color: #ffffff;
   padding: 10px 30px;
 }

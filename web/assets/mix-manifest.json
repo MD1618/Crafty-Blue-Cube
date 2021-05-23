@@ -1,5 +1,18 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/img/bg-texture.jpg": "/img/bg-texture.jpg"
+    "/img/Bark_06_roughness.jpg": "/img/Bark_06_roughness.jpg",
+    "/img/bg-texture-2.jpg": "/img/bg-texture-2.jpg",
+    "/img/bg-texture-3.jpg": "/img/bg-texture-3.jpg",
+    "/img/bg-texture-4.jpg": "/img/bg-texture-4.jpg",
+    "/img/bg-texture-displacementmap-2.jpg": "/img/bg-texture-displacementmap-2.jpg",
+    "/img/bg-texture-displacementmap-3.jpg": "/img/bg-texture-displacementmap-3.jpg",
+    "/img/bg-texture-displacementmap-4.jpg": "/img/bg-texture-displacementmap-4.jpg",
+    "/img/bg-texture-displacementmap.jpg": "/img/bg-texture-displacementmap.jpg",
+    "/img/bg-texture.jpg": "/img/bg-texture.jpg",
+    "/img/Geometric_wallpaper_height.png": "/img/Geometric_wallpaper_height.png",
+    "/img/Material_1823.jpg": "/img/Material_1823.jpg",
+    "/img/wood-base.jpg": "/img/wood-base.jpg",
+    "/img/wood-bump.jpg": "/img/wood-bump.jpg",
+    "/img/wood-normal.jpg": "/img/wood-normal.jpg"
 }
