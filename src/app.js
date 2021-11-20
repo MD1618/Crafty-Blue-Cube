@@ -90,7 +90,7 @@ function main() {
         y: "+=200",
         scrollTrigger: {
             trigger: ".section-logos",
-            start: `50% 50%`,
+            start: `60% 50%`,
             end: "300%",
             scrub: 1,
             pin: true
@@ -151,6 +151,13 @@ function main() {
         duration: 0.2
 
     }, 0);
+    pinCta.from('.section-cta-button', {
+        y: '+=100',
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.2
+
+    }, 0.9);
     pinCta.to('.canvas-main', {
         opacity: 0,
         duration: 0.5
@@ -194,7 +201,7 @@ function main() {
 
 
     const color3 = 0xffffFF;
-    const intensity3 = 1.3;
+    const intensity3 = 1;
     const light3 = new THREE.PointLight(color3, intensity3, 10000);
     light3.position.set(550, 0, 190);
     light3.castShadow = true;

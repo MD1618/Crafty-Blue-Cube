@@ -7,9 +7,9 @@ module.exports = {
             colors: {
                 'blue-dark': '#1d3557',
                 'indigo-600': '#1d3557',
-                'indigo-500': '#457b9d',
-                'blue-mid': '#457b9d',
-                'blue-light': '#a8dadc',
+                'indigo-500': '#60abdd',
+                'blue-mid': '#60abdd',
+                'blue-light': '#c8fafc',
                 'grey': '#f1faee',
                 'red': '#e63946',
             },

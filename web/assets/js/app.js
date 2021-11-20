@@ -83,7 +83,7 @@ function main() {
     y: "+=200",
     scrollTrigger: {
       trigger: ".section-logos",
-      start: "50% 50%",
+      start: "60% 50%",
       end: "300%",
       scrub: 1,
       pin: true //ease: 'Linear'
@@ -137,6 +137,12 @@ function main() {
     stagger: 0.1,
     duration: 0.2
   }, 0);
+  pinCta.from('.section-cta-button', {
+    y: '+=100',
+    opacity: 0,
+    stagger: 0.1,
+    duration: 0.2
+  }, 0.9);
   pinCta.to('.canvas-main', {
     opacity: 0,
     duration: 0.5
@@ -163,7 +169,7 @@ function main() {
   ambientLight.position.set(100, 100, 400);
   scene.add(ambientLight);
   var color3 = 0xffffFF;
-  var intensity3 = 1.3;
+  var intensity3 = 1;
   var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
   light3.position.set(550, 0, 190);
   light3.castShadow = true; //Set up shadow properties for the light
