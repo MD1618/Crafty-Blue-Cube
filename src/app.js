@@ -193,8 +193,8 @@ function main() {
 
     const color3 = 0xffffFF;
     const intensity3 = 1.3;
-    const light3 = new THREE.PointLight(color3, intensity3, 3000);
-    light3.position.set(300, 440, 190);
+    const light3 = new THREE.PointLight(color3, intensity3, 10000);
+    light3.position.set(550, 0, 190);
     light3.castShadow = true;
     //Set up shadow properties for the light
     light3.shadow.mapSize.width = 1024;
@@ -203,6 +203,19 @@ function main() {
     // light3.shadow.camera.far = 5000;
     // light3.shadow.bias = 0;
     scene.add(light3);
+
+    const color2 = 0xffffFF;
+    const intensity2 = 0.7;
+    const light2 = new THREE.PointLight(color2, intensity2, 3000);
+    light2.position.set(550, 500, 590);
+    // light2.castShadow = true;
+    //Set up shadow properties for the light
+    // light2.shadow.mapSize.width = 1024;
+    // light2.shadow.mapSize.height = 1024;
+    // light2.shadow.camera.near = 0.1;
+    // light2.shadow.camera.far = 5000;
+    // light2.shadow.bias = 0;
+    scene.add(light2);
 
 
 
@@ -368,6 +381,7 @@ function main() {
         cube.rotation.z = cubeRotation.z;
 
         plane.position.y = scroll.y;
+        light3.position.y = scroll.y + 200;
 
         camera.position.z = perspectiveObj.cameraZ;
         scene.rotation.y = perspectiveObj.sceneY;

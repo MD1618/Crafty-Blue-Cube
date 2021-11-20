@@ -161,8 +161,8 @@ function main() {
   scene.add(ambientLight);
   var color3 = 0xffffFF;
   var intensity3 = 1.3;
-  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 3000);
-  light3.position.set(300, 440, 190);
+  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
+  light3.position.set(550, 0, 190);
   light3.castShadow = true; //Set up shadow properties for the light
 
   light3.shadow.mapSize.width = 1024;
@@ -170,7 +170,19 @@ function main() {
   // light3.shadow.camera.far = 5000;
   // light3.shadow.bias = 0;
 
-  scene.add(light3); // onmousemove = function(e) {
+  scene.add(light3);
+  var color2 = 0xffffFF;
+  var intensity2 = 0.7;
+  var light2 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color2, intensity2, 3000);
+  light2.position.set(550, 500, 590); // light2.castShadow = true;
+  //Set up shadow properties for the light
+  // light2.shadow.mapSize.width = 1024;
+  // light2.shadow.mapSize.height = 1024;
+  // light2.shadow.camera.near = 0.1;
+  // light2.shadow.camera.far = 5000;
+  // light2.shadow.bias = 0;
+
+  scene.add(light2); // onmousemove = function(e) {
   //     light2.position.set(e.clientX - width / 2, ((e.clientY - height / 2) * -1), 160);
   // }
   // onmousedown = function(e) {
@@ -287,6 +299,7 @@ function main() {
     cube.rotation.y = cubeRotation.y;
     cube.rotation.z = cubeRotation.z;
     plane.position.y = scroll.y;
+    light3.position.y = scroll.y + 200;
     camera.position.z = perspectiveObj.cameraZ;
     scene.rotation.y = perspectiveObj.sceneY; // controls.update();
 
