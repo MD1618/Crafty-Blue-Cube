@@ -23,6 +23,19 @@
     padding: 10px 30px;
 }
 
+.perspective-button {
+    position: absolute;
+    //left: 50%;
+    right: 50px;
+    bottom: 50px;
+    // transform: translateX(-50%);
+    border-radius: 10px;
+    background-color: #25252981;
+    color: #ffffff;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
 .section-wrapper {
     position: relative;
 }
@@ -31,4 +44,8 @@
     position: relative;
     height: 100%;
     width: 100%;
+}
+
+.section-three {
+    height: 300vh;
 }

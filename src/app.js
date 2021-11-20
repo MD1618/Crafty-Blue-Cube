@@ -14,6 +14,9 @@ function main() {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // renderer.physicallyCorrectLights = true;
+    //renderer.toneMapping = THREE.ReinhardToneMapping;
+
     let mouseCoords = {
         x: 0,
         y: 0
@@ -21,11 +24,13 @@ function main() {
 
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
-    const cubeWidth = width / 6;
+    const cubeWidth = width / 8;
     const cubeHeight = height / 6;
     //console.log(width, height)
 
-    const downButton = document.querySelector(".js_down-button");
+    // const downButton = document.querySelector(".js_down-button");
+    // const perspectiveButton = document.querySelector(".js_perspective-button");
+
     const sections = document.querySelectorAll(".section-full-height");
 
 
@@ -51,8 +56,59 @@ function main() {
 
     const scene = new THREE.Scene();
 
-
+    let perspectiveIsFull = true;
     //scene.rotation.y = 1;
+
+    let perspectiveObj = {
+        cameraZ: 800,
+        sceneY: 0
+    }
+
+    // perspectiveButton.addEventListener("click", () => {
+    //     if (!perspectiveIsFull) {
+    //         // camera.position.z = 800;
+    //         // scene.rotation.y = 0;
+
+    //         gsap.to(perspectiveObj, {
+    //             cameraZ: 800,
+    //             sceneY: 0,
+    //             duration: 1,
+    //             ease: "Power3.easeInOut"
+    //         })
+
+    //         perspectiveIsFull = true;
+    //     } else {
+    //         // camera.position.z = 3800;
+    //         // scene.rotation.y = 1;
+
+    //         gsap.to(perspectiveObj, {
+    //             cameraZ: 3000,
+    //             sceneY: 0.7,
+    //             duration: 1,
+    //             ease: "Power3.easeInOut"
+    //         })
+
+    //         perspectiveIsFull = false;
+    //     }
+    // })
+
+
+
+    gsap.to(perspectiveObj, {
+        cameraZ: 3000,
+        sceneY: 0.7,
+
+        scrollTrigger: {
+            trigger: ".section-three",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5,
+            //ease: 'Linear'
+
+        },
+        // ease: "Linear",
+        //duration: 0.4
+    })
 
 
     const manager = new THREE.LoadingManager();
@@ -85,7 +141,7 @@ function main() {
 
 
     const color = 0xffffFF;
-    const intensity = 0.4;
+    const intensity = 1.4;
     const ambientLight = new THREE.AmbientLight(color, intensity);
     ambientLight.position.set(100, 100, 400);
     scene.add(ambientLight);
@@ -98,18 +154,31 @@ function main() {
 
 
 
-    const baseIntensity2 = 0.8;
+    const baseIntensity2 = 0;
     const light2 = new THREE.PointLight(color, baseIntensity2, 10000);
     light2.castShadow = true;
     //Set up shadow properties for the light
-    light2.shadow.mapSize.width = 2048; // default
-    light2.shadow.mapSize.height = 2048; // default
-    light2.shadow.camera.near = 0.1; // default
-    light2.shadow.camera.far = 5000; // default
-    light2.shadow.bias = 0;
+    // light2.shadow.mapSize.width = 2048; // default
+    // light2.shadow.mapSize.height = 2048; // default
+    // light2.shadow.camera.near = 0.1; // default
+    // light2.shadow.camera.far = 5000; // default
+    // light2.shadow.bias = 0;
     //console.log(light2);
     //light2.position.set(10, 15, 14);
     scene.add(light2);
+
+    const color3 = 0xffffFF;
+    const intensity3 = 1.3;
+    const light3 = new THREE.PointLight(color3, intensity3, 10000);
+    light3.position.set(300, 440, 190);
+    light3.castShadow = true;
+    //Set up shadow properties for the light
+    // light3.shadow.mapSize.width = 2048; // default
+    // light3.shadow.mapSize.height = 2048; // default
+    // light3.shadow.camera.near = 0.1; // default
+    // light3.shadow.camera.far = 5000; // default
+    // light3.shadow.bias = 0;
+    scene.add(light3);
 
 
 
@@ -119,7 +188,7 @@ function main() {
     }
 
     onmousedown = function(e) {
-        gsap.to(light2, { intensity: 1.3, duration: 0.4, ease: 'Power1.easeInOut' });
+        gsap.to(light2, { intensity: 0.7, duration: 0.4, ease: 'Power1.easeInOut' });
 
     }
 
@@ -128,27 +197,39 @@ function main() {
         //light2.intensity = 0.4;
     }
 
-    const planeHeight = height * 3;
-    const scrollHeight = planeHeight / 3;
+    const planeHeight = height * 5;
+    const scrollHeight = height;
 
-    const map = new THREE.TextureLoader(manager).load('assets/img/wood-base.jpg');
+    const map = new THREE.TextureLoader(manager).load('assets/img/book/book_map.jpg');
+    map.anisotropy = 4;
+    map.magFilter = THREE.NearestFilter;
+    map.minFilter = THREE.LinearMipMapLinearFilter;
     map.wrapS = THREE.RepeatWrapping;
     map.wrapT = THREE.RepeatWrapping;
-    const texture = new THREE.TextureLoader(manager).load('assets/img/wood-bump.jpg');
+
+    const texture = new THREE.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
+    texture.anisotropy = 4;
+    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = THREE.LinearMipMapLinearFilter;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    const heightMap = new THREE.TextureLoader(manager).load('assets/img/wood_height.png');
+
+    const heightMap = new THREE.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
+    heightMap.anisotropy = 4;
+    heightMap.magFilter = THREE.NearestFilter;
+    heightMap.minFilter = THREE.LinearMipMapLinearFilter;
     heightMap.wrapS = THREE.RepeatWrapping;
     heightMap.wrapT = THREE.RepeatWrapping;
-    const normalMap = new THREE.TextureLoader(manager).load('assets/img/wood-normal.jpg');
+
+    const normalMap = new THREE.TextureLoader(manager).load('assets/img/book/book_norm.jpg');
     normalMap.wrapS = THREE.RepeatWrapping;
     normalMap.wrapT = THREE.RepeatWrapping;
 
-    const geometryPlane = new THREE.PlaneGeometry(width, planeHeight, 500, 2000);
+    const geometryPlane = new THREE.PlaneGeometry(width, planeHeight, 500, 1000);
     const materialPlane = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
+        color: 0xaaccaa,
         //emissive: 0x100007,
-        shininess: 0.2,
+        shininess: 0,
         //transparent: true,
         // opacity: 0.8,
 
@@ -156,13 +237,14 @@ function main() {
         // depthTest: true,
         map: map,
         bumpMap: texture,
-        bumpScale: 36,
+        bumpScale: 10,
         displacementMap: heightMap,
-        displacementScale: 12,
+        displacementScale: 10,
         //normalMap: normalMap,
 
 
     });
+    materialPlane.map.minFilter = THREE.LinearFilter;
 
     const plane = new THREE.Mesh(geometryPlane, materialPlane);
     plane.geometry.computeBoundingBox();
@@ -174,17 +256,17 @@ function main() {
     var heightG = max.y - min.y;
     var widthG = max.x - min.x;
 
-    const textureSize = 512;
+    const textureSize = 1024;
 
     map.repeat.set(widthG / textureSize, heightG / textureSize);
     texture.repeat.set(widthG / textureSize, heightG / textureSize);
     heightMap.repeat.set(widthG / textureSize, heightG / textureSize);
     normalMap.repeat.set(widthG / textureSize, heightG / textureSize);
 
-    map.needsUpdate = true;
-    texture.needsUpdate = true;
-    heightMap.needsUpdate = true;
-    normalMap.needsUpdate = true;
+    // map.needsUpdate = true;
+    // texture.needsUpdate = true;
+    // heightMap.needsUpdate = true;
+    // normalMap.needsUpdate = true;
 
     // texture.wrapS = THREE.RepeatWrapping;
     // texture.wrapT = THREE.RepeatWrapping;
@@ -197,11 +279,11 @@ function main() {
     scene.add(plane);
 
     let scroll = {
-        y: -planeHeight + height
+        y: -planeHeight + height * 2
     };
-    downButton.addEventListener("click", () => {
-        window.scrollTo({ top: height, behavior: 'smooth' });
-    });
+    // downButton.addEventListener("click", () => {
+    //     window.scrollTo({ top: height, behavior: 'smooth' });
+    // });
 
     // const axesHelper = new THREE.AxesHelper(500);
     // scene.add(axesHelper);
@@ -214,8 +296,8 @@ function main() {
             trigger: ".section-wrapper",
             // start: "top top",
             // end: "bottom bottom",
-            scrub: true,
-            ease: 'Linear'
+            scrub: 0.4,
+            ease: 'Power1.inOut'
 
         },
         // ease: "Linear",
@@ -225,9 +307,9 @@ function main() {
 
     const boxWidth = cubeWidth;
     const boxHeight = cubeHeight;
-    const boxDepth = 40;
+    const boxDepth = 100;
     //const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-    const geometry = new THREE.BoxGeometry(300, 300, boxDepth, 300, 300, 300);
+    const geometry = new THREE.BoxGeometry(200, 200, boxDepth, 600, 600, 300);
 
 
 
@@ -242,36 +324,38 @@ function main() {
     // });
 
 
-    const cubeMap = new THREE.TextureLoader(manager).load('assets/img/wood-base.jpg');
+    const cubeMap = new THREE.TextureLoader(manager).load('assets/img/wall_base.jpg');
     cubeMap.wrapS = THREE.RepeatWrapping;
     cubeMap.wrapT = THREE.RepeatWrapping;
-    const cubeTexture = new THREE.TextureLoader(manager).load('assets/img/wood-bump.jpg');
+    const cubeTexture = new THREE.TextureLoader(manager).load('assets/img/wall_bump.jpg');
     cubeTexture.wrapS = THREE.RepeatWrapping;
     cubeTexture.wrapT = THREE.RepeatWrapping;
-    const cubeHeightMap = new THREE.TextureLoader(manager).load('assets/img/wood_height.png');
+    const cubeHeightMap = new THREE.TextureLoader(manager).load('assets/img/wall_height.png');
     cubeHeightMap.wrapS = THREE.RepeatWrapping;
     cubeHeightMap.wrapT = THREE.RepeatWrapping;
-    const cubeNormalMap = new THREE.TextureLoader(manager).load('assets/img/wood-normal.jpg');
-    cubeNormalMap.wrapS = THREE.RepeatWrapping;
-    cubeNormalMap.wrapT = THREE.RepeatWrapping;
+    // const cubeNormalMap = new THREE.TextureLoader(manager).load('assets/img/wood_norm.jpg');
+    // cubeNormalMap.wrapS = THREE.RepeatWrapping;
+    // cubeNormalMap.wrapT = THREE.RepeatWrapping;
+
 
 
 
 
 
     const material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
+        color: 0x777777,
         //emissive: 0x100007,
-        shininess: 0.2,
+        shininess: 0,
+
 
         depthWrite: true,
         depthTest: true,
-        // map: cubeMap,
-        // bumpMap: cubeTexture,
-        // bumpScale: 26,
-        // displacementMap: cubeHeightMap,
-        // displacementScale: 26,
-        // normalMap: cubeNormalMap,
+        map: cubeMap,
+        bumpMap: cubeTexture,
+        bumpScale: 13,
+        displacementMap: cubeHeightMap,
+        displacementScale: 10,
+        //normalMap: cubeNormalMap,
 
 
     });
@@ -281,25 +365,24 @@ function main() {
 
     const cube = new THREE.Mesh(geometry, material);
 
-    cube.geometry.computeBoundingBox();
+    // cube.geometry.computeBoundingBox();
 
 
-    var cubemax = plane.geometry.boundingBox.max;
-    var cubemin = plane.geometry.boundingBox.min;
-    var cubeheightG = cubemax.y - cubemin.y;
-    var cubewidthG = cubemax.x - cubemin.x;
+    // var cubemax = plane.geometry.boundingBox.max;
+    // var cubemin = plane.geometry.boundingBox.min;
+    // var cubeheightG = cubemax.y - cubemin.y;
+    // var cubewidthG = cubemax.x - cubemin.x;
 
-    const cubeTextureSize = 512;
+    // const cubeTextureSize = 1300;
 
-    cubeMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-    cubeTexture.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-    cubeHeightMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-    cubeNormalMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+    // cubeMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+    // cubeTexture.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+    // cubeHeightMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+    // cubeNormalMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
 
-    cubeMap.needsUpdate = true;
-    cubeTexture.needsUpdate = true;
-    cubeHeightMap.needsUpdate = true;
-    cubeNormalMap.needsUpdate = true;
+    // cubeMap.needsUpdate = true;
+    // cubeTexture.needsUpdate = true;
+    // cubeHeightMap.needsUpdate = true;
 
     cube.castShadow = true;
     cube.receiveShadow = true;
@@ -318,11 +401,7 @@ function main() {
     };
 
 
-    const color3 = 0xddddFF;
-    const intensity3 = 2;
-    const light3 = new THREE.PointLight(color3, intensity3, 10000);
-    light3.position.set(0, 240, 40);
-    //scene.add(light3);
+
 
     // const material2 = new THREE.MeshPhongMaterial({
     //     color: 0xffffff,
@@ -334,35 +413,35 @@ function main() {
     //     depthTest: true
     // });
 
-    const material2 = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //emissive: 0x100007,
-        shininess: 0.2,
+    // const material2 = new THREE.MeshPhongMaterial({
+    //     color: 0xffffff,
+    //     //emissive: 0x100007,
+    //     shininess: 0.2,
 
-        // depthWrite: true,
-        // depthTest: true,
-        map: loader.load('assets/img/wood-base.jpg'),
-        bumpMap: loader.load('assets/img/wood-bump.jpg'),
-        bumpScale: 6,
+    //     // depthWrite: true,
+    //     // depthTest: true,
+    //     map: loader.load('assets/img/wood-base.jpg'),
+    //     bumpMap: loader.load('assets/img/wood-bump.jpg'),
+    //     bumpScale: 6,
 
 
-    });
+    // });
 
-    const cube2 = new THREE.Mesh(geometry, material2);
-    cube2.castShadow = true;
-    cube2.receiveShadow = true;
-    //scene.add(cube2);
+    // const cube2 = new THREE.Mesh(geometry, material2);
+    // cube2.castShadow = true;
+    // cube2.receiveShadow = true;
+    // //scene.add(cube2);
 
-    cube2.position.y = 240;
-    cube2.position.x = 0;
-    cube2.position.z = 0;
-    cube2.rotation.y = -1.1;
+    // cube2.position.y = 240;
+    // cube2.position.x = 0;
+    // cube2.position.z = 0;
+    // cube2.rotation.y = -1.1;
 
-    let cube2Rotation = {
-        x: 0,
-        y: 0,
-        z: 0
-    };
+    // let cube2Rotation = {
+    //     x: 0,
+    //     y: 0,
+    //     z: 0
+    // };
 
 
 
@@ -372,8 +451,9 @@ function main() {
             trigger: ".section-wrapper",
             start: "top top",
             end: "bottom bottom",
-            scrub: 1,
-            //ease: 'Linear'
+            scrub: 0.4,
+            ease: 'Power1.inOut'
+                //ease: 'Linear'
 
         },
         // ease: "Linear",
@@ -497,13 +577,16 @@ function main() {
 
         // }
 
-        cube2.rotation.y = cube2Rotation.y;
+        // cube2.rotation.y = cube2Rotation.y;
 
         cube.rotation.x = cubeRotation.x;
         cube.rotation.y = cubeRotation.y;
         cube.rotation.z = cubeRotation.z;
 
         plane.position.y = scroll.y;
+
+        camera.position.z = perspectiveObj.cameraZ;
+        scene.rotation.y = perspectiveObj.sceneY;
 
         // controls.update();
         renderer.render(scene, camera);

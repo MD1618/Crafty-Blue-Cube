@@ -27,17 +27,20 @@ function main() {
     antialias: true
   });
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_2__.PCFSoftShadowMap;
+  renderer.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_2__.PCFSoftShadowMap; // renderer.physicallyCorrectLights = true;
+  //renderer.toneMapping = THREE.ReinhardToneMapping;
+
   var mouseCoords = {
     x: 0,
     y: 0
   };
   var width = canvas.clientWidth;
   var height = canvas.clientHeight;
-  var cubeWidth = width / 6;
+  var cubeWidth = width / 8;
   var cubeHeight = height / 6; //console.log(width, height)
+  // const downButton = document.querySelector(".js_down-button");
+  // const perspectiveButton = document.querySelector(".js_perspective-button");
 
-  var downButton = document.querySelector(".js_down-button");
   var sections = document.querySelectorAll(".section-full-height");
   var fov = 50;
   var aspect = 2; // the canvas default
@@ -53,8 +56,49 @@ function main() {
   var boxGap = 1.6;
   var cubes = [];
   var loader = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader();
-  var scene = new three__WEBPACK_IMPORTED_MODULE_2__.Scene(); //scene.rotation.y = 1;
+  var scene = new three__WEBPACK_IMPORTED_MODULE_2__.Scene();
+  var perspectiveIsFull = true; //scene.rotation.y = 1;
 
+  var perspectiveObj = {
+    cameraZ: 800,
+    sceneY: 0
+  }; // perspectiveButton.addEventListener("click", () => {
+  //     if (!perspectiveIsFull) {
+  //         // camera.position.z = 800;
+  //         // scene.rotation.y = 0;
+  //         gsap.to(perspectiveObj, {
+  //             cameraZ: 800,
+  //             sceneY: 0,
+  //             duration: 1,
+  //             ease: "Power3.easeInOut"
+  //         })
+  //         perspectiveIsFull = true;
+  //     } else {
+  //         // camera.position.z = 3800;
+  //         // scene.rotation.y = 1;
+  //         gsap.to(perspectiveObj, {
+  //             cameraZ: 3000,
+  //             sceneY: 0.7,
+  //             duration: 1,
+  //             ease: "Power3.easeInOut"
+  //         })
+  //         perspectiveIsFull = false;
+  //     }
+  // })
+
+  gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(perspectiveObj, {
+    cameraZ: 3000,
+    sceneY: 0.7,
+    scrollTrigger: {
+      trigger: ".section-three",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.5 //ease: 'Linear'
+
+    } // ease: "Linear",
+    //duration: 0.4
+
+  });
   var manager = new three__WEBPACK_IMPORTED_MODULE_2__.LoadingManager();
 
   manager.onStart = function (url, itemsLoaded, itemsTotal) {
@@ -74,7 +118,7 @@ function main() {
   };
 
   var color = 0xffffFF;
-  var intensity = 0.4;
+  var intensity = 1.4;
   var ambientLight = new three__WEBPACK_IMPORTED_MODULE_2__.AmbientLight(color, intensity);
   ambientLight.position.set(100, 100, 400);
   scene.add(ambientLight);
@@ -83,22 +127,30 @@ function main() {
   var directinoalLight = new three__WEBPACK_IMPORTED_MODULE_2__.DirectionalLight(color, intensity);
   directinoalLight.position.set(100, 100, 400); //scene.add(directinoalLight);
 
-  var baseIntensity2 = 0.8;
+  var baseIntensity2 = 0;
   var light2 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color, baseIntensity2, 10000);
   light2.castShadow = true; //Set up shadow properties for the light
-
-  light2.shadow.mapSize.width = 2048; // default
-
-  light2.shadow.mapSize.height = 2048; // default
-
-  light2.shadow.camera.near = 0.1; // default
-
-  light2.shadow.camera.far = 5000; // default
-
-  light2.shadow.bias = 0; //console.log(light2);
+  // light2.shadow.mapSize.width = 2048; // default
+  // light2.shadow.mapSize.height = 2048; // default
+  // light2.shadow.camera.near = 0.1; // default
+  // light2.shadow.camera.far = 5000; // default
+  // light2.shadow.bias = 0;
+  //console.log(light2);
   //light2.position.set(10, 15, 14);
 
   scene.add(light2);
+  var color3 = 0xffffFF;
+  var intensity3 = 1.3;
+  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
+  light3.position.set(300, 440, 190);
+  light3.castShadow = true; //Set up shadow properties for the light
+  // light3.shadow.mapSize.width = 2048; // default
+  // light3.shadow.mapSize.height = 2048; // default
+  // light3.shadow.camera.near = 0.1; // default
+  // light3.shadow.camera.far = 5000; // default
+  // light3.shadow.bias = 0;
+
+  scene.add(light3);
 
   onmousemove = function onmousemove(e) {
     light2.position.set(e.clientX - width / 2, (e.clientY - height / 2) * -1, 160);
@@ -106,7 +158,7 @@ function main() {
 
   onmousedown = function onmousedown(e) {
     gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(light2, {
-      intensity: 1.3,
+      intensity: 0.7,
       duration: 0.4,
       ease: 'Power1.easeInOut'
     });
@@ -120,36 +172,46 @@ function main() {
     }); //light2.intensity = 0.4;
   };
 
-  var planeHeight = height * 3;
-  var scrollHeight = planeHeight / 3;
-  var map = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-base.jpg');
+  var planeHeight = height * 5;
+  var scrollHeight = height;
+  var map = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_map.jpg');
+  map.anisotropy = 4;
+  map.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
+  map.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
   map.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   map.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var texture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-bump.jpg');
+  var texture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
+  texture.anisotropy = 4;
+  texture.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
+  texture.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
   texture.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   texture.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var heightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood_height.png');
+  var heightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
+  heightMap.anisotropy = 4;
+  heightMap.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
+  heightMap.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
   heightMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   heightMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var normalMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-normal.jpg');
+  var normalMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_norm.jpg');
   normalMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   normalMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var geometryPlane = new three__WEBPACK_IMPORTED_MODULE_2__.PlaneGeometry(width, planeHeight, 500, 2000);
+  var geometryPlane = new three__WEBPACK_IMPORTED_MODULE_2__.PlaneGeometry(width, planeHeight, 500, 1000);
   var materialPlane = new three__WEBPACK_IMPORTED_MODULE_2__.MeshPhongMaterial({
-    color: 0xffffff,
+    color: 0xaaccaa,
     //emissive: 0x100007,
-    shininess: 0.2,
+    shininess: 0,
     //transparent: true,
     // opacity: 0.8,
     // depthWrite: true,
     // depthTest: true,
     map: map,
     bumpMap: texture,
-    bumpScale: 36,
+    bumpScale: 10,
     displacementMap: heightMap,
-    displacementScale: 12 //normalMap: normalMap,
+    displacementScale: 10 //normalMap: normalMap,
 
   });
+  materialPlane.map.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearFilter;
   var plane = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometryPlane, materialPlane);
   plane.geometry.computeBoundingBox(); // var max = plane.geometry.boundingBox.max;
   // var min = plane.geometry.boundingBox.min;
@@ -158,15 +220,15 @@ function main() {
   var min = plane.geometry.boundingBox.min;
   var heightG = max.y - min.y;
   var widthG = max.x - min.x;
-  var textureSize = 512;
+  var textureSize = 1024;
   map.repeat.set(widthG / textureSize, heightG / textureSize);
   texture.repeat.set(widthG / textureSize, heightG / textureSize);
   heightMap.repeat.set(widthG / textureSize, heightG / textureSize);
-  normalMap.repeat.set(widthG / textureSize, heightG / textureSize);
-  map.needsUpdate = true;
-  texture.needsUpdate = true;
-  heightMap.needsUpdate = true;
-  normalMap.needsUpdate = true; // texture.wrapS = THREE.RepeatWrapping;
+  normalMap.repeat.set(widthG / textureSize, heightG / textureSize); // map.needsUpdate = true;
+  // texture.needsUpdate = true;
+  // heightMap.needsUpdate = true;
+  // normalMap.needsUpdate = true;
+  // texture.wrapS = THREE.RepeatWrapping;
   // texture.wrapT = THREE.RepeatWrapping;
   // texture.repeat.set( 4, 4 );
 
@@ -176,14 +238,11 @@ function main() {
 
   scene.add(plane);
   var scroll = {
-    y: -planeHeight + height
-  };
-  downButton.addEventListener("click", function () {
-    window.scrollTo({
-      top: height,
-      behavior: 'smooth'
-    });
-  }); // const axesHelper = new THREE.AxesHelper(500);
+    y: -planeHeight + height * 2
+  }; // downButton.addEventListener("click", () => {
+  //     window.scrollTo({ top: height, behavior: 'smooth' });
+  // });
+  // const axesHelper = new THREE.AxesHelper(500);
   // scene.add(axesHelper);
 
   gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(scroll, {
@@ -192,17 +251,17 @@ function main() {
       trigger: ".section-wrapper",
       // start: "top top",
       // end: "bottom bottom",
-      scrub: true,
-      ease: 'Linear'
+      scrub: 0.4,
+      ease: 'Power1.inOut'
     } // ease: "Linear",
     //duration: 0.4
 
   });
   var boxWidth = cubeWidth;
   var boxHeight = cubeHeight;
-  var boxDepth = 40; //const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+  var boxDepth = 100; //const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-  var geometry = new three__WEBPACK_IMPORTED_MODULE_2__.BoxGeometry(300, 300, boxDepth, 300, 300, 300); // const material = new THREE.MeshPhongMaterial({
+  var geometry = new three__WEBPACK_IMPORTED_MODULE_2__.BoxGeometry(200, 200, boxDepth, 600, 600, 300); // const material = new THREE.MeshPhongMaterial({
   //     color: 0xffffff,
   //     emissive: 0x000002,
   //     shininess: 0.5,
@@ -212,46 +271,45 @@ function main() {
   //     depthTest: true
   // });
 
-  var cubeMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-base.jpg');
+  var cubeMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_base.jpg');
   cubeMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   cubeMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var cubeTexture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-bump.jpg');
+  var cubeTexture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_bump.jpg');
   cubeTexture.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
   cubeTexture.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var cubeHeightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood_height.png');
+  var cubeHeightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_height.png');
   cubeHeightMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  cubeHeightMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var cubeNormalMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wood-normal.jpg');
-  cubeNormalMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  cubeNormalMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
+  cubeHeightMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping; // const cubeNormalMap = new THREE.TextureLoader(manager).load('assets/img/wood_norm.jpg');
+  // cubeNormalMap.wrapS = THREE.RepeatWrapping;
+  // cubeNormalMap.wrapT = THREE.RepeatWrapping;
+
   var material = new three__WEBPACK_IMPORTED_MODULE_2__.MeshPhongMaterial({
-    color: 0xffffff,
+    color: 0x777777,
     //emissive: 0x100007,
-    shininess: 0.2,
+    shininess: 0,
     depthWrite: true,
-    depthTest: true // map: cubeMap,
-    // bumpMap: cubeTexture,
-    // bumpScale: 26,
-    // displacementMap: cubeHeightMap,
-    // displacementScale: 26,
-    // normalMap: cubeNormalMap,
+    depthTest: true,
+    map: cubeMap,
+    bumpMap: cubeTexture,
+    bumpScale: 13,
+    displacementMap: cubeHeightMap,
+    displacementScale: 10 //normalMap: cubeNormalMap,
 
   });
-  var cube = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material);
-  cube.geometry.computeBoundingBox();
-  var cubemax = plane.geometry.boundingBox.max;
-  var cubemin = plane.geometry.boundingBox.min;
-  var cubeheightG = cubemax.y - cubemin.y;
-  var cubewidthG = cubemax.x - cubemin.x;
-  var cubeTextureSize = 512;
-  cubeMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  cubeTexture.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  cubeHeightMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  cubeNormalMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  cubeMap.needsUpdate = true;
-  cubeTexture.needsUpdate = true;
-  cubeHeightMap.needsUpdate = true;
-  cubeNormalMap.needsUpdate = true;
+  var cube = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material); // cube.geometry.computeBoundingBox();
+  // var cubemax = plane.geometry.boundingBox.max;
+  // var cubemin = plane.geometry.boundingBox.min;
+  // var cubeheightG = cubemax.y - cubemin.y;
+  // var cubewidthG = cubemax.x - cubemin.x;
+  // const cubeTextureSize = 1300;
+  // cubeMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+  // cubeTexture.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+  // cubeHeightMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+  // cubeNormalMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
+  // cubeMap.needsUpdate = true;
+  // cubeTexture.needsUpdate = true;
+  // cubeHeightMap.needsUpdate = true;
+
   cube.castShadow = true;
   cube.receiveShadow = true; //cube.material.flatShading = true;
   //cube.material.opacity = a;
@@ -264,12 +322,7 @@ function main() {
     x: 0,
     y: 0,
     z: 0
-  };
-  var color3 = 0xddddFF;
-  var intensity3 = 2;
-  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
-  light3.position.set(0, 240, 40); //scene.add(light3);
-  // const material2 = new THREE.MeshPhongMaterial({
+  }; // const material2 = new THREE.MeshPhongMaterial({
   //     color: 0xffffff,
   //     emissive: 0x002002,
   //     shininess: 0.5,
@@ -278,37 +331,38 @@ function main() {
   //     depthWrite: true,
   //     depthTest: true
   // });
+  // const material2 = new THREE.MeshPhongMaterial({
+  //     color: 0xffffff,
+  //     //emissive: 0x100007,
+  //     shininess: 0.2,
+  //     // depthWrite: true,
+  //     // depthTest: true,
+  //     map: loader.load('assets/img/wood-base.jpg'),
+  //     bumpMap: loader.load('assets/img/wood-bump.jpg'),
+  //     bumpScale: 6,
+  // });
+  // const cube2 = new THREE.Mesh(geometry, material2);
+  // cube2.castShadow = true;
+  // cube2.receiveShadow = true;
+  // //scene.add(cube2);
+  // cube2.position.y = 240;
+  // cube2.position.x = 0;
+  // cube2.position.z = 0;
+  // cube2.rotation.y = -1.1;
+  // let cube2Rotation = {
+  //     x: 0,
+  //     y: 0,
+  //     z: 0
+  // };
 
-  var material2 = new three__WEBPACK_IMPORTED_MODULE_2__.MeshPhongMaterial({
-    color: 0xffffff,
-    //emissive: 0x100007,
-    shininess: 0.2,
-    // depthWrite: true,
-    // depthTest: true,
-    map: loader.load('assets/img/wood-base.jpg'),
-    bumpMap: loader.load('assets/img/wood-bump.jpg'),
-    bumpScale: 6
-  });
-  var cube2 = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material2);
-  cube2.castShadow = true;
-  cube2.receiveShadow = true; //scene.add(cube2);
-
-  cube2.position.y = 240;
-  cube2.position.x = 0;
-  cube2.position.z = 0;
-  cube2.rotation.y = -1.1;
-  var cube2Rotation = {
-    x: 0,
-    y: 0,
-    z: 0
-  };
   gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(cubeRotation, {
     y: 6,
     scrollTrigger: {
       trigger: ".section-wrapper",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1 //ease: 'Linear'
+      scrub: 0.4,
+      ease: 'Power1.inOut' //ease: 'Linear'
 
     } // ease: "Linear",
     //duration: 0.4
@@ -417,13 +471,15 @@ function main() {
     //     cubes[index].rotation.x += 0.01;
     //     //cubes[index].material.opacity = Math.sin(1 * index);
     // }
+    // cube2.rotation.y = cube2Rotation.y;
 
 
-    cube2.rotation.y = cube2Rotation.y;
     cube.rotation.x = cubeRotation.x;
     cube.rotation.y = cubeRotation.y;
     cube.rotation.z = cubeRotation.z;
-    plane.position.y = scroll.y; // controls.update();
+    plane.position.y = scroll.y;
+    camera.position.z = perspectiveObj.cameraZ;
+    scene.rotation.y = perspectiveObj.sceneY; // controls.update();
 
     renderer.render(scene, camera);
     requestAnimationFrame(render);
