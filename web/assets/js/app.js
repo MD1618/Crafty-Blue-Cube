@@ -27,15 +27,15 @@ function main() {
     antialias: true
   });
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_2__.PCFSoftShadowMap; // renderer.physicallyCorrectLights = true;
-  //renderer.toneMapping = THREE.ReinhardToneMapping;
+  renderer.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_2__.PCFSoftShadowMap; //renderer.toneMapping = THREE.ReinhardToneMapping;
 
   var mouseCoords = {
     x: 0,
     y: 0
   };
   var width = canvas.clientWidth;
-  var height = canvas.clientHeight;
+  var sectionWrapperHeight = document.querySelector(".section-wrapper");
+  var height = sectionWrapperHeight.clientHeight;
   var cubeWidth = width / 8;
   var cubeHeight = height / 6; //console.log(width, height)
   // const downButton = document.querySelector(".js_down-button");
@@ -62,176 +62,110 @@ function main() {
   var perspectiveObj = {
     cameraZ: 800,
     sceneY: 0
-  }; // perspectiveButton.addEventListener("click", () => {
-  //     if (!perspectiveIsFull) {
-  //         // camera.position.z = 800;
-  //         // scene.rotation.y = 0;
-  //         gsap.to(perspectiveObj, {
-  //             cameraZ: 800,
-  //             sceneY: 0,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //         perspectiveIsFull = true;
-  //     } else {
-  //         // camera.position.z = 3800;
-  //         // scene.rotation.y = 1;
-  //         gsap.to(perspectiveObj, {
-  //             cameraZ: 3000,
-  //             sceneY: 0.7,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //         perspectiveIsFull = false;
-  //     }
+  }; // gsap.to(perspectiveObj, {
+  //     cameraZ: 3000,
+  //     sceneY: 0.7,
+  //     scrollTrigger: {
+  //         trigger: ".section-cta",
+  //         start: `50% 50%`,
+  //         end: "300%",
+  //         scrub: 1,
+  //         pin: true
+  //             //ease: 'Linear'
+  //     },
+  //     // ease: "Linear",
+  //     //duration: 2
   // })
 
-  gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(perspectiveObj, {
-    cameraZ: 3000,
-    sceneY: 0.7,
+  gsap__WEBPACK_IMPORTED_MODULE_0__.default.from(".section-logos img", {
+    opacity: 0,
+    y: "+=200",
     scrollTrigger: {
-      trigger: ".section-three",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 0.5 //ease: 'Linear'
+      trigger: ".section-logos",
+      start: "50% 50%",
+      end: "300%",
+      scrub: 1,
+      pin: true //ease: 'Linear'
 
     } // ease: "Linear",
-    //duration: 0.4
+    //duration: 2
 
   });
-  var manager = new three__WEBPACK_IMPORTED_MODULE_2__.LoadingManager();
-
-  manager.onStart = function (url, itemsLoaded, itemsTotal) {
-    console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-  };
-
-  manager.onLoad = function () {
-    console.log('Loading complete!');
-  };
-
-  manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-    console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-  };
-
-  manager.onError = function (url) {
-    console.log('There was an error loading ' + url);
-  };
-
+  var pinCta = gsap__WEBPACK_IMPORTED_MODULE_0__.default.timeline();
+  pinCta.to(perspectiveObj, {
+    cameraZ: 4000,
+    sceneY: 0.7,
+    duration: 0.8,
+    ease: 'power3.inOut'
+  }, 0.5);
+  pinCta.from('.section-cta-item', {
+    scale: 0.4,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 0.2
+  }, 0);
+  pinCta.to('.canvas-main', {
+    opacity: 0,
+    duration: 0.5
+  }, 0.8);
+  pinCta.to('.section-cta-heading', {
+    color: '#fff',
+    duration: 0.5
+  }, 0.7);
+  pinCta.to('.section-cta-text', {
+    color: '#fff',
+    duration: 0.5
+  }, 0.7);
+  gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_1__.ScrollTrigger.create({
+    trigger: ".section-cta",
+    start: "50% 50%",
+    end: "500%",
+    scrub: 1,
+    pin: true,
+    animation: pinCta
+  });
   var color = 0xffffFF;
   var intensity = 1.4;
   var ambientLight = new three__WEBPACK_IMPORTED_MODULE_2__.AmbientLight(color, intensity);
   ambientLight.position.set(100, 100, 400);
   scene.add(ambientLight);
-  var colorD = 0xffffFF;
-  var intensityD = 0.4;
-  var directinoalLight = new three__WEBPACK_IMPORTED_MODULE_2__.DirectionalLight(color, intensity);
-  directinoalLight.position.set(100, 100, 400); //scene.add(directinoalLight);
-
-  var baseIntensity2 = 0;
-  var light2 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color, baseIntensity2, 10000);
-  light2.castShadow = true; //Set up shadow properties for the light
-  // light2.shadow.mapSize.width = 2048; // default
-  // light2.shadow.mapSize.height = 2048; // default
-  // light2.shadow.camera.near = 0.1; // default
-  // light2.shadow.camera.far = 5000; // default
-  // light2.shadow.bias = 0;
-  //console.log(light2);
-  //light2.position.set(10, 15, 14);
-
-  scene.add(light2);
   var color3 = 0xffffFF;
   var intensity3 = 1.3;
-  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
+  var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 3000);
   light3.position.set(300, 440, 190);
   light3.castShadow = true; //Set up shadow properties for the light
-  // light3.shadow.mapSize.width = 2048; // default
-  // light3.shadow.mapSize.height = 2048; // default
-  // light3.shadow.camera.near = 0.1; // default
-  // light3.shadow.camera.far = 5000; // default
+
+  light3.shadow.mapSize.width = 1024;
+  light3.shadow.mapSize.height = 1024; // light3.shadow.camera.near = 0.1;
+  // light3.shadow.camera.far = 5000;
   // light3.shadow.bias = 0;
 
-  scene.add(light3);
-
-  onmousemove = function onmousemove(e) {
-    light2.position.set(e.clientX - width / 2, (e.clientY - height / 2) * -1, 160);
-  };
-
-  onmousedown = function onmousedown(e) {
-    gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(light2, {
-      intensity: 0.7,
-      duration: 0.4,
-      ease: 'Power1.easeInOut'
-    });
-  };
-
-  onmouseup = function onmouseup(e) {
-    gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(light2, {
-      intensity: baseIntensity2,
-      duration: 0.4,
-      ease: 'Power1.easeInOut'
-    }); //light2.intensity = 0.4;
-  };
+  scene.add(light3); // onmousemove = function(e) {
+  //     light2.position.set(e.clientX - width / 2, ((e.clientY - height / 2) * -1), 160);
+  // }
+  // onmousedown = function(e) {
+  //     gsap.to(light2, { intensity: 0.7, duration: 0.4, ease: 'Power1.easeInOut' });
+  // }
+  // onmouseup = function(e) {
+  //     gsap.to(light2, { intensity: baseIntensity2, duration: 0.4, ease: 'Power1.easeInOut' });
+  //     //light2.intensity = 0.4;
+  // }
 
   var planeHeight = height * 5;
   var scrollHeight = height;
-  var map = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_map.jpg');
-  map.anisotropy = 4;
-  map.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
-  map.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
-  map.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  map.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var texture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
-  texture.anisotropy = 4;
-  texture.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
-  texture.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
-  texture.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  texture.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var heightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_texture.jpg');
-  heightMap.anisotropy = 4;
-  heightMap.magFilter = three__WEBPACK_IMPORTED_MODULE_2__.NearestFilter;
-  heightMap.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearMipMapLinearFilter;
-  heightMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  heightMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var normalMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/book/book_norm.jpg');
-  normalMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  normalMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var geometryPlane = new three__WEBPACK_IMPORTED_MODULE_2__.PlaneGeometry(width, planeHeight, 500, 1000);
+  var geometryPlane = new three__WEBPACK_IMPORTED_MODULE_2__.PlaneGeometry(width, planeHeight, 10, 10);
   var materialPlane = new three__WEBPACK_IMPORTED_MODULE_2__.MeshPhongMaterial({
-    color: 0xaaccaa,
+    color: 0x457b9d,
     //emissive: 0x100007,
-    shininess: 0,
-    //transparent: true,
+    shininess: 0.2 //transparent: true,
     // opacity: 0.8,
     // depthWrite: true,
     // depthTest: true,
-    map: map,
-    bumpMap: texture,
-    bumpScale: 10,
-    displacementMap: heightMap,
-    displacementScale: 10 //normalMap: normalMap,
+    //normalMap: normalMap,
 
-  });
-  materialPlane.map.minFilter = three__WEBPACK_IMPORTED_MODULE_2__.LinearFilter;
+  }); // materialPlane.map.minFilter = THREE.LinearFilter;
+
   var plane = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometryPlane, materialPlane);
-  plane.geometry.computeBoundingBox(); // var max = plane.geometry.boundingBox.max;
-  // var min = plane.geometry.boundingBox.min;
-
-  var max = plane.geometry.boundingBox.max;
-  var min = plane.geometry.boundingBox.min;
-  var heightG = max.y - min.y;
-  var widthG = max.x - min.x;
-  var textureSize = 1024;
-  map.repeat.set(widthG / textureSize, heightG / textureSize);
-  texture.repeat.set(widthG / textureSize, heightG / textureSize);
-  heightMap.repeat.set(widthG / textureSize, heightG / textureSize);
-  normalMap.repeat.set(widthG / textureSize, heightG / textureSize); // map.needsUpdate = true;
-  // texture.needsUpdate = true;
-  // heightMap.needsUpdate = true;
-  // normalMap.needsUpdate = true;
-  // texture.wrapS = THREE.RepeatWrapping;
-  // texture.wrapT = THREE.RepeatWrapping;
-  // texture.repeat.set( 4, 4 );
-
   plane.castShadow = true;
   plane.receiveShadow = true;
   plane.position.z = -200; //plane.position.set(0, planeHeight, 0)
@@ -257,59 +191,17 @@ function main() {
     //duration: 0.4
 
   });
-  var boxWidth = cubeWidth;
-  var boxHeight = cubeHeight;
   var boxDepth = 100; //const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-  var geometry = new three__WEBPACK_IMPORTED_MODULE_2__.BoxGeometry(200, 200, boxDepth, 600, 600, 300); // const material = new THREE.MeshPhongMaterial({
-  //     color: 0xffffff,
-  //     emissive: 0x000002,
-  //     shininess: 0.5,
-  //     //transparent: true,
-  //     // opacity: 0.8,
-  //     depthWrite: true,
-  //     depthTest: true
-  // });
-
-  var cubeMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_base.jpg');
-  cubeMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  cubeMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var cubeTexture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_bump.jpg');
-  cubeTexture.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  cubeTexture.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  var cubeHeightMap = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader(manager).load('assets/img/wall_height.png');
-  cubeHeightMap.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
-  cubeHeightMap.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping; // const cubeNormalMap = new THREE.TextureLoader(manager).load('assets/img/wood_norm.jpg');
-  // cubeNormalMap.wrapS = THREE.RepeatWrapping;
-  // cubeNormalMap.wrapT = THREE.RepeatWrapping;
-
+  var geometry = new three__WEBPACK_IMPORTED_MODULE_2__.BoxGeometry(200, 200, boxDepth, 10, 10, 10);
   var material = new three__WEBPACK_IMPORTED_MODULE_2__.MeshPhongMaterial({
-    color: 0x777777,
+    color: 0x558bad,
     //emissive: 0x100007,
-    shininess: 0,
+    shininess: 0.8,
     depthWrite: true,
-    depthTest: true,
-    map: cubeMap,
-    bumpMap: cubeTexture,
-    bumpScale: 13,
-    displacementMap: cubeHeightMap,
-    displacementScale: 10 //normalMap: cubeNormalMap,
-
+    depthTest: true
   });
-  var cube = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material); // cube.geometry.computeBoundingBox();
-  // var cubemax = plane.geometry.boundingBox.max;
-  // var cubemin = plane.geometry.boundingBox.min;
-  // var cubeheightG = cubemax.y - cubemin.y;
-  // var cubewidthG = cubemax.x - cubemin.x;
-  // const cubeTextureSize = 1300;
-  // cubeMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  // cubeTexture.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  // cubeHeightMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  // cubeNormalMap.repeat.set(cubewidthG / cubeTextureSize, cubeheightG / cubeTextureSize);
-  // cubeMap.needsUpdate = true;
-  // cubeTexture.needsUpdate = true;
-  // cubeHeightMap.needsUpdate = true;
-
+  var cube = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material);
   cube.castShadow = true;
   cube.receiveShadow = true; //cube.material.flatShading = true;
   //cube.material.opacity = a;
@@ -322,39 +214,7 @@ function main() {
     x: 0,
     y: 0,
     z: 0
-  }; // const material2 = new THREE.MeshPhongMaterial({
-  //     color: 0xffffff,
-  //     emissive: 0x002002,
-  //     shininess: 0.5,
-  //     transparent: true,
-  //     opacity: 0.4,
-  //     depthWrite: true,
-  //     depthTest: true
-  // });
-  // const material2 = new THREE.MeshPhongMaterial({
-  //     color: 0xffffff,
-  //     //emissive: 0x100007,
-  //     shininess: 0.2,
-  //     // depthWrite: true,
-  //     // depthTest: true,
-  //     map: loader.load('assets/img/wood-base.jpg'),
-  //     bumpMap: loader.load('assets/img/wood-bump.jpg'),
-  //     bumpScale: 6,
-  // });
-  // const cube2 = new THREE.Mesh(geometry, material2);
-  // cube2.castShadow = true;
-  // cube2.receiveShadow = true;
-  // //scene.add(cube2);
-  // cube2.position.y = 240;
-  // cube2.position.x = 0;
-  // cube2.position.z = 0;
-  // cube2.rotation.y = -1.1;
-  // let cube2Rotation = {
-  //     x: 0,
-  //     y: 0,
-  //     z: 0
-  // };
-
+  };
   gsap__WEBPACK_IMPORTED_MODULE_0__.default.to(cubeRotation, {
     y: 6,
     scrollTrigger: {
@@ -367,80 +227,7 @@ function main() {
     } // ease: "Linear",
     //duration: 0.4
 
-  }); // ScrollTrigger.create({
-  //     trigger: sections[1],
-  //     start: "top top",
-  //     end: "bottom bottom",
-  //     scrub: 1,
-  //     onEnter: () => {
-  //         console.log("section enter");
-  //         gsap.to(cubeRotation, {
-  //             z: 2,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //     },
-  //     onEnterBack: () => {
-  //         gsap.to(cubeRotation, {
-  //             z: 3,
-  //             y: 0,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //     },
-  //     onLeave: () => {
-  //         gsap.to(cubeRotation, {
-  //             y: 3,
-  //             z: 0,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //     },
-  //     onLeaveBack: () => {
-  //         gsap.to(cubeRotation, {
-  //             y: 0,
-  //             duration: 1,
-  //             ease: "Power3.easeInOut"
-  //         })
-  //     }
-  // // onToggle: self => console.log("toggled, isActive:", self.isActive),
-  // onUpdate: self => {
-  //     scroll.y = planeHeight * self.progress.toFixed(3) / 2.8;
-  //     // console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
-  // }
-  //});
-
-  function makeInstance(geometry, x, y, z, a, make) {
-    if (make) {
-      var _cube = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(geometry, material);
-
-      _cube.castShadow = true;
-      _cube.receiveShadow = true; //cube.material.flatShading = true;
-      //cube.material.opacity = a;
-
-      scene.add(_cube);
-      _cube.position.x = x;
-      _cube.position.y = y;
-      _cube.position.z = z;
-      cubes.push(_cube); //console.log(cubes[0]);
-
-      return _cube;
-    }
-  }
-
-  function makeArray() {
-    var squareCount = 6;
-
-    for (var i = squareCount / -2; i < squareCount / 2 + 1; i++) {
-      for (var j = squareCount / -2; j < squareCount / 2 + 1; j++) {
-        var z = i + j % 2 ? -40 : 40;
-        var alpha = i + j % 2 ? 1 : 0.8;
-        var make = i + j % 2 ? false : true;
-        makeInstance(geometry, i * cubeWidth, j * cubeHeight, z, alpha, make);
-      }
-    }
-  } //makeArray();
-
+  });
 
   function resizeRendererToDisplaySize(renderer) {
     var canvas = renderer.domElement;
@@ -464,15 +251,7 @@ function main() {
       var _canvas = renderer.domElement;
       camera.aspect = _canvas.clientWidth / _canvas.clientHeight;
       camera.updateProjectionMatrix();
-    } //scene.rotation.y += 0.001;
-    // for (let index = 0; index < cubes.length; index++) {
-    //     cubes[index].rotation.z += 0.01;
-    //     cubes[index].rotation.y += 0.01;
-    //     cubes[index].rotation.x += 0.01;
-    //     //cubes[index].material.opacity = Math.sin(1 * index);
-    // }
-    // cube2.rotation.y = cube2Rotation.y;
-
+    }
 
     cube.rotation.x = cubeRotation.x;
     cube.rotation.y = cubeRotation.y;
@@ -485,18 +264,7 @@ function main() {
     requestAnimationFrame(render);
   }
 
-  render(); // function requestRenderIfNotRequested() {
-  //     if (!renderRequested) {
-  //         renderRequested = true;
-  //         requestAnimationFrame(render);
-  //     }
-  // }
-  // //controls.addEventListener('change', requestRenderIfNotRequested);
-  // window.addEventListener('resize', () => {
-  //     const canvas = renderer.domElement;
-  //     camera.aspect = canvas.clientWidth / canvas.clientHeight;
-  //     camera.updateProjectionMatrix();
-  // });
+  render();
 }
 
 main();
