@@ -61,7 +61,8 @@ function main() {
 
     let perspectiveObj = {
         cameraZ: 800,
-        sceneY: 0
+        sceneY: 0,
+        sceneX: 0
     };
 
 
@@ -101,10 +102,10 @@ function main() {
     })
 
     gsap.from(".feature", {
-        scale: 0.7,
+        scale: 0.9,
         opacity: 0,
-        y: "+=200",
-
+        y: "+=50",
+        stagger: 0.2,
         scrollTrigger: {
             trigger: ".features",
             start: `top bottom`,
@@ -139,6 +140,7 @@ function main() {
     pinCta.to(perspectiveObj, {
         cameraZ: 4000,
         sceneY: 0.7,
+        sceneX: 240,
         duration: 0.8,
         ease: 'power3.inOut'
     }, 0.5);
@@ -381,10 +383,11 @@ function main() {
         cube.rotation.z = cubeRotation.z;
 
         plane.position.y = scroll.y;
-        light3.position.y = scroll.y + 200;
+        light3.position.y = scroll.y - 150;
 
         camera.position.z = perspectiveObj.cameraZ;
         scene.rotation.y = perspectiveObj.sceneY;
+        scene.position.x = perspectiveObj.sceneX;
 
         // controls.update();
         renderer.render(scene, camera);
