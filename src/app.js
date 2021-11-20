@@ -100,6 +100,41 @@ function main() {
         //duration: 2
     })
 
+    gsap.from(".feature", {
+        scale: 0.7,
+        opacity: 0,
+        y: "+=200",
+
+        scrollTrigger: {
+            trigger: ".features",
+            start: `top bottom`,
+            end: "10%",
+            scrub: 1,
+            //pin: true
+            //ease: 'Linear'
+
+        },
+        // ease: "Linear",
+        //duration: 2
+    })
+
+    gsap.from(".testimonial-blockquote", {
+        opacity: 0,
+        x: "+=200",
+        stagger: 0.2,
+        scrollTrigger: {
+            trigger: ".testimonial",
+            start: `top bottom`,
+            end: "10%",
+            scrub: 1,
+            //pin: true
+            //ease: 'Linear'
+
+        },
+        // ease: "Linear",
+        //duration: 2
+    })
+
     let pinCta = gsap.timeline();
     pinCta.to(perspectiveObj, {
         cameraZ: 4000,
