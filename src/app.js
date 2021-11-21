@@ -268,15 +268,15 @@ function main() {
     light3.position.set(550, 0, 90);
     light3.castShadow = true;
     //Set up shadow properties for the light
-    light3.shadow.mapSize.width = 1024;
-    light3.shadow.mapSize.height = 1024;
+    light3.shadow.mapSize.width = 2048;
+    light3.shadow.mapSize.height = 2048;
     // light3.shadow.camera.near = 0.1;
     // light3.shadow.camera.far = 5000;
-    // light3.shadow.bias = 0;
+    // light3.shadow.bias = 0.01;
     scene.add(light3);
 
     const color2 = 0xffffFF;
-    const intensity2 = 0.7;
+    const intensity2 = 0.5;
     const light2 = new THREE.PointLight(color2, intensity2, 3000);
     light2.position.set(550, 500, 190);
     // light2.castShadow = true;
