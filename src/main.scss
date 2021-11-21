@@ -13,7 +13,21 @@
 
 .feature,
 .testimonial-blockquote {
-    background-color: rgba(#60abdd, 0.9);
+    // background-color: rgba(#60abdd, 0.9);
+    @apply border-2 rounded border-blue-dark border-opacity-25 text-blue-dark;
+}
+
+.feature {
+    height: 300px;
+    width: 300px;
+}
+
+.feature-left {
+    margin-left: auto;
+}
+
+.feature-right {
+    margin-right: auto;
 }
 
 .damn-body {

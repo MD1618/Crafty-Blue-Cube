@@ -16,47 +16,13 @@
 	<section class="w-full px-6 pb-12 antialiased bg-transparent">
 		<div class="mx-auto max-w-7xl">
 
-			<nav class="relative z-50 h-24 select-none" x-data="{ showMenu: false }">
-				<div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto overflow-hidden font-medium border-b border-gray-200 md:overflow-visible lg:justify-center sm:px-4 md:px-2">
-					<div class="flex items-center justify-start w-1/4 h-full pr-4">
-						<a href="#_" class="inline-block py-4 md:py-0">
-							<span class="p-1 text-xl font-black leading-none text-gray-900"><span>tails</span><span class="text-indigo-600">.</span></span>
-						</a>
-					</div>
-					<div class="top-0 left-0 items-start hidden w-full h-full p-4 text-sm bg-transparent bg-opacity-50 md:items-center md:w-3/4 md:absolute lg:text-base md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex fixed': showMenu, 'hidden': !showMenu }">
-						<div class="flex-col w-full h-auto overflow-hidden bg-transparent rounded-lg md:bg-transparent md:overflow-visible md:rounded-none md:relative md:flex md:flex-row">
-							<a href="#_" class="inline-flex items-center block w-auto h-16 px-6 text-xl font-black leading-none text-gray-900 md:hidden">tails<span class="text-indigo-600">.</span></a>
-							<div class="flex flex-col items-start justify-center w-full space-x-6 text-center lg:space-x-8 md:w-2/3 md:mt-0 md:flex-row md:items-center">
-								<a href="#_" class="inline-block w-full py-2 mx-0 ml-6 font-medium text-left text-indigo-600 md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Home</a>
-								<a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Features</a>
-								<a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Blog</a>
-								<a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Contact</a>
-								<a href="#_" class="absolute top-0 left-0 hidden py-2 mt-6 ml-10 mr-2 text-gray-600 lg:inline-block md:mt-0 md:ml-2 lg:mx-3 md:relative">
-									<svg class="inline w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-								</a>
-							</div>
-							<div class="flex flex-col items-start justify-end w-full pt-4 md:items-center md:w-1/3 md:flex-row md:py-0">
-								<a href="#" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Sign In</a>
-								<a href="#_" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-blue-dark  md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-600">Sign Up</a>
-							</div>
-						</div>
-					</div>
-					<div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-transparent rounded-full cursor-pointer md:hidden hover:bg-gray-100">
-						<svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" x-cloak="">
-							<path d="M4 6h16M4 12h16M4 18h16"></path>
-						</svg>
-						<svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" x-cloak="">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-						</svg>
-					</div>
-				</div>
-			</nav>
 
 			<!-- Main Hero Content -->
-			<div class="container max-w-lg px-4 py-16 mx-auto text-left md:max-w-none md:text-center">
-				<h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-blue-mid md:text-center sm:leading-none md:text-6xl lg:text-7xl"><span class="inline md:block">Start Crafting Your</span> <span class="relative mt-2  text-blue-dark md:inline-block">Next Great Idea</span></h1>
-				
-				
+			<div class="container flex h-screen py-16 mx-auto md:text-center headings">
+				<h1 class="m-auto text-5xl font-extrabold leading-10 tracking-tight md:text-center sm:leading-none md:text-6xl lg:text-7xl">
+					<span class="inline mb-3 text-3xl md:block md:text-4xl lg:text-5xl text-blue-dark heading-one">Start Crafting Your</span> 
+					<span class="relative mb-4 whitespace-nowrap text-blue-dark md:inline-block heading-two">Next Great Idea</span>
+				</h1>
 			</div>
 			<!-- End Main Hero Content -->
 
@@ -64,9 +30,9 @@
 	</section>
 
 	<!-- Section 2 -->
-	<section class="bg-transparent pt-7 pb-32 section-logos mb-24 mt-48">
+	<section class="pb-32 mt-48 mb-24 bg-transparent pt-7 section-logos">
 		<div class="container px-8 mx-auto sm:px-12 lg:px-20">
-			<h1 class="text-sm font-bold tracking-wide text-center text-gray-800 uppercase mb-32">Trusted by top-leading companies.</h1>
+			<h1 class="mb-32 text-sm font-bold tracking-wide text-center uppercase text-blue-dark">Trusted by top-leading companies.</h1>
 			<div class="flex grid items-center justify-center grid-cols-4 grid-cols-12 gap-y-8">
 				<div class="flex items-center justify-center col-span-6 sm:col-span-4 md:col-span-3 xl:col-span-2">
 					<img src="https://cdn.devdojo.com/tails/images/disney-plus.svg" alt="Disney Plus" class="block object-contain h-12">
@@ -91,58 +57,45 @@
 	</section>
 
 	<!-- Section 3 -->
-	<section class="py-20 bg-transparent features mb-24">
+	<section class="py-20 mb-24 bg-transparent features">
 		<div class="container max-w-6xl mx-auto">
-			<h2 class="text-4xl md:text-6xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-center  text-blue-dark ">Our Features</h2>
+			<h2 class="text-4xl font-bold tracking-tight text-center md:text-6xl lg:text-5xl xl:text-6xl text-blue-dark ">Our Features</h2>
 			<p class="mt-2 text-lg text-center text-gray-600">Check out our list of awesome features below.</p>
 			<div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
 
-				<div class="feature  relative flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M14 3v4a1 1 0 0 0 1 1h4"></path><path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5"></path><circle cx="6" cy="14" r="3"></circle><path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5"></path></svg>
+					<div class="relative flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden feature feature-left ">
+						<div class="p-3 border-2 rounded-full text-blue-dark bg-blue-light border-blue-dark">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M14 3v4a1 1 0 0 0 1 1h4"></path><path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5"></path><circle cx="6" cy="14" r="3"></circle><path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5"></path></svg>
+						</div>
+						<h4 class="text-xl font-bold text-blue-dark">Certifications</h4>
+						<p class="text-base text-center text-gray-600">Level up like a boss. Get the paperwork to prove it.</p>
 					</div>
-					<h4 class="text-xl font-medium text-white">Certifications</h4>
-					<p class="text-base text-center text-blue-light">Each of our plan will provide you and your team with certifications.</p>
-				</div>
 
-				<div class="feature  flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 8a3 3 0 0 1 0 6"></path><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5"></path><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8"></path></svg>
+				
+					<div class="flex flex-col items-center justify-between col-span-4 col-start-9 px-8 py-12 space-y-4 feature feature-right ">
+						<div class="p-3 border-2 rounded-full text-blue-dark bg-blue-light border-blue-dark">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"></polyline><line x1="12" y1="12" x2="20" y2="7.5"></line><line x1="12" y1="12" x2="12" y2="21"></line><line x1="12" y1="12" x2="4" y2="7.5"></line><line x1="16" y1="5.25" x2="8" y2="9.75"></line></svg>
+						</div>
+						<h4 class="text-xl font-bold text-blue-dark">Bundles</h4>
+						<p class="text-base text-center text-gray-600">Save your hard earned dollar by spending more on a bundle.</p>
 					</div>
-					<h4 class="text-xl font-medium text-white">Notifications</h4>
-					<p class="text-base text-center text-blue-light">Send out notifications to all your customers to keep them engaged.</p>
-				</div>
 
-				<div class="feature  flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"></polyline><line x1="12" y1="12" x2="20" y2="7.5"></line><line x1="12" y1="12" x2="12" y2="21"></line><line x1="12" y1="12" x2="4" y2="7.5"></line><line x1="16" y1="5.25" x2="8" y2="9.75"></line></svg>
-					</div>
-					<h4 class="text-xl font-medium text-white">Bundles</h4>
-					<p class="text-base text-center text-blue-light">High-quality bundles of awesome tools to help you out.</p>
-				</div>
-
-				<div class="feature  flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
+				<div class="flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 feature feature-left ">
+					<div class="p-3 border-2 rounded-full text-blue-dark bg-blue-light border-blue-dark">
 						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 9l3 3l-3 3"></path><line x1="13" y1="15" x2="16" y2="15"></line><rect x="3" y="4" width="18" height="16" rx="2"></rect></svg>
 					</div>
-					<h4 class="text-xl font-medium text-white">Developer Tools</h4>
-					<p class="text-base text-center text-blue-light">Developer tools to help grow your application and keep it up-to-date.</p>
+					<h4 class="text-xl font-bold text-blue-dark">Developer Tools</h4>
+					<p class="text-base text-center text-gray-600">Developer tools to help you get your shit together.</p>
 				</div>
 
-				<div class="feature  flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="9.5" y1="11" x2="9.51" y2="11"></line><line x1="14.5" y1="11" x2="14.51" y2="11"></line><path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path><path d="M7 5h1v-2h8v2h1a3 3 0 0 1 3 3v9a3 3 0 0 1 -3 3v1h-10v-1a3 3 0 0 1 -3 -3v-9a3 3 0 0 1 3 -3"></path></svg>
-					</div>
-					<h4 class="text-xl font-medium text-white">Building Blocks</h4>
-					<p class="text-base text-center text-blue-light">The right kind of building blocks to take your company to the next level.</p>
-				</div>
+			
 
-				<div class="feature  flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4  sm:rounded-xl">
-					<div class="p-3 text-blue-dark bg-blue-light rounded-full">
+				<div class="flex flex-col items-center justify-between col-span-4 col-start-9 px-8 py-12 space-y-4 feature feature-right ">
+					<div class="p-3 border-2 rounded-full text-blue-dark bg-blue-light border-blue-dark">
 						<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="15" y1="5" x2="15" y2="7"></line><line x1="15" y1="11" x2="15" y2="13"></line><line x1="15" y1="17" x2="15" y2="19"></line><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"></path></svg>
 					</div>
-					<h4 class="text-xl font-medium text-white">Coupons</h4>
-					<p class="text-base text-center text-blue-light">Coupons system to provide special offers and discounts for your app.</p>
+					<h4 class="text-xl font-bold text-blue-dark">Beautiful Staff</h4>
+					<p class="text-base text-center text-gray-600">Never have to speak to someone with a concave face.</p>
 				</div>
 
 			</div>
@@ -150,64 +103,64 @@
 	</section>
 
 	<!-- Section 4 -->
-	<section class="flex items-center justify-center py-16 bg-transparent min-w-screen testimonial mb-24">
+	<section class="flex items-center justify-center py-16 mb-24 bg-transparent min-w-screen testimonial">
 		<div class="max-w-6xl px-12 mx-auto bg-transparent md:px-16 xl:px-10">
 			<div class="flex flex-col items-center lg:flex-row">
 				<div class="flex flex-col items-start justify-center w-full h-full pr-8 mb-10 lg:mb-0 lg:w-1/2 testimonial-content">
 					<p class="mb-2 text-base font-medium tracking-tight text-indigo-500 uppercase">Our customers love our product</p>
-					<h2 class="text-4xl font-extrabold leading-10 tracking-tight  text-blue-dark  sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl">Testimonials</h2>
+					<h2 class="text-4xl font-extrabold leading-10 tracking-tight text-blue-dark sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl">Glowing Testimonials</h2>
 					<p class="my-6 text-lg text-gray-600">Don't just take our word for it, read from our extensive list of case studies and customer testimonials.</p>
-					<a href="#_" class="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-blue-dark text-white border border-transparent rounded-md  hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:-outline-indigo md:py-4 md:text-lg md:px-10">View Case Studies</a>
+					<a href="#_" class="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded bg-blue-dark hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:-outline-indigo md:py-4 md:text-lg md:px-10">View Case Studies</a>
 				</div>
 				<div class="w-full lg:w-1/2">
-					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 rounded-lg  testimonial-blockquote">
+					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 testimonial-blockquote">
 						<div class="flex flex-col pr-8">
-							<div class="relative pl-12">
-								<svg class="absolute left-0 w-10 h-10 text-blue-light fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+							<div class="relative pl-12 text-blue-dark">
+								<svg class="absolute left-0 w-10 h-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
 									<path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
 								</svg>
-								<p class="mt-2 text-sm text-white sm:text-base lg:text-sm xl:text-base">Awesome product! And the customer service is exceptionally well.</p>
+								<p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base">Awesome product! I only have to push 3 buttons now.</p>
 							</div>
 
-							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-white truncate sm:text-base lg:text-sm lg:text-base">
+							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-600 truncate sm:text-base lg:text-sm lg:text-base">
 								Jane Cooper
-								<span class="mt-1 text-sm leading-5 text-blue-light truncate">- CEO SomeCompany</span>
+								<span class="mt-1 text-sm leading-5 truncate text-blue-mid">- CEO SomeCompany</span>
 							</h3>
 						</div>
-						<img class="flex-shrink-0 w-20 h-20 bg-gray-300 rounded-full xl:w-24 xl:h-24" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+						<img class="flex-shrink-0 w-20 h-20 bg-gray-300 border-2 rounded-full border-blue-dark xl:w-24 xl:h-24" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
 					</blockquote>
-					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 rounded-lg  testimonial-blockquote">
+					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 testimonial-blockquote">
 						<div class="flex flex-col pr-10">
-							<div class="relative pl-12">
-								<svg class="absolute left-0 w-10 h-10 text-blue-light fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+							<div class="relative pl-12 text-blue-dark">
+								<svg class="absolute left-0 w-10 h-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
 									<path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
 								</svg>
-								<p class="mt-2 text-sm text-white sm:text-base lg:text-sm xl:text-base">I can't express enough, how amazing this service has been for my company.</p>
+								<p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base">I can't express enough, how amazing this service has been for my company.</p>
 							</div>
-							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-white truncate sm:text-base lg:text-sm lg:text-base">
+							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-600 truncate sm:text-base lg:text-sm lg:text-base">
 								John Doe
-								<span class="mt-1 text-sm leading-5 text-blue-light truncate">- CEO SomeCompany</span>
+								<span class="mt-1 text-sm leading-5 truncate text-blue-mid">- CEO SomeCompany</span>
 							</h3>
-							<p class="mt-1 text-sm leading-5 text-blue-light truncate"></p>
+							<p class="mt-1 text-sm leading-5 truncate text-blue-mid"></p>
 						</div>
-						<img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+						<img class="flex-shrink-0 w-24 h-24 bg-gray-300 border-2 rounded-full border-blue-dark" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
 					</blockquote>
-					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 rounded-lg  testimonial-blockquote">
+					<blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 testimonial-blockquote">
 						<div class="flex flex-col pr-10">
-							<div class="relative pl-12">
-								<svg class="absolute left-0 w-10 h-10 text-blue-light fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+							<div class="relative pl-12 text-blue-dark">
+								<svg class="absolute left-0 w-10 h-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
 									<path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
 								</svg>
-								<p class="mt-2 text-sm text-white sm:text-base lg:text-sm xl:text-base">I can't express enough, how amazing this service has been for my company.</p>
+								<p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base">I can express how amazing this service has been for my company. It has been Splendid!</p>
 							</div>
 
-							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-white truncate sm:text-base lg:text-sm lg:text-base">
+							<h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-600 truncate sm:text-base lg:text-sm lg:text-base">
 								John Smith
-								<span class="mt-1 text-sm leading-5 text-blue-light truncate">- CEO SomeCompany</span>
+								<span class="mt-1 text-sm leading-5 truncate text-blue-mid">- CEO SomeCompany</span>
 							</h3>
-							<p class="mt-1 text-sm leading-5 text-blue-light truncate"></p>
+							<p class="mt-1 text-sm leading-5 truncate text-blue-mid"></p>
 						</div>
-						<img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full" src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rrb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+						<img class="flex-shrink-0 w-24 h-24 bg-gray-300 border-2 rounded-full border-blue-dark" src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rrb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
 					</blockquote>
 				</div>
 			</div>
@@ -215,17 +168,18 @@
 	</section>
 
 	<!-- Section 5 -->
-	<section class="py-20 bg-transparent  js_cta-pin section-cta">
+	<section class="py-20 bg-transparent js_cta-pin section-cta">
 		<div class="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-			<h2 class="section-cta-item section-cta-heading  text-4xl md:text-6xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-center  text-blue-dark sm:text-4xl">
-				The New Standard for Design
+			
+			<h2 class="text-4xl font-bold tracking-tight text-center section-cta-item section-cta-heading md:text-6xl lg:text-5xl xl:text-6xl text-blue-dark sm:text-4xl">
+				Don't work in the dark.
 			</h2>
-			<p class="section-cta-item section-cta-text max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+			<p class="max-w-md mx-auto mt-3 text-base text-gray-500 section-cta-item section-cta-text sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
 				Use our award-winning tools to help you maximize your profits. We've uncovered the correct recipe for converting visitors into customers.
 			</p>
 			<div class="flex justify-center mt-8 space-x-3">
-				<a href="#" class="section-cta-button inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white bg-blue-dark text-white border border-transparent rounded-md  hover:bg-indigo-700">Sign Up Today</a>
-				<a href="#" class="section-cta-button inline-flex items-center justify-center px-5 py-3 text-base font-medium text-blue-dark bg-blue-light border border-transparent rounded-md hover:bg-indigo-200">Learn more</a>
+				<a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white border border-transparent rounded section-cta-button bg-blue-dark hover:bg-indigo-700">Sign Up Today</a>
+				<a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium border border-transparent rounded section-cta-button text-blue-dark bg-blue-light hover:bg-indigo-200">Learn more</a>
 			</div>
 		</div>
 	</section>

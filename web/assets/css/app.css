@@ -31013,9 +31013,27 @@ video {
   --red: #e63946;
 }
 
-.feature,
-.testimonial-blockquote {
-  background-color: rgba(96, 171, 221, 0.9);
+.feature, .testimonial-blockquote {
+  border-radius: 0.25rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgba(29, 53, 87, var(--tw-border-opacity));
+  --tw-border-opacity: 0.25;
+  --tw-text-opacity: 1;
+  color: rgba(29, 53, 87, var(--tw-text-opacity));
+}
+
+.feature {
+  height: 300px;
+  width: 300px;
+}
+
+.feature-left {
+  margin-left: auto;
+}
+
+.feature-right {
+  margin-right: auto;
 }
 
 .damn-body {

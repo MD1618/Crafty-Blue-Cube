@@ -85,6 +85,37 @@ function main() {
     //     //duration: 2
     // })
 
+
+    gsap.to(".headings", {
+        opacity: 0,
+        ease: 'linear',
+        scrollTrigger: {
+            trigger: ".headings",
+            start: `top 0%`,
+            end: "+=40%",
+            scrub: 0,
+        },
+    })
+
+    // gsap.to(".heading-one", {
+    //     opacity: 0,
+    //     scrollTrigger: {
+    //         start: `top 0%`,
+    //         end: "bottom 60%",
+    //         scrub: 1,
+    //     },
+    // })
+
+    // gsap.to(".heading-two", {
+    //     opacity: 0,
+    //     scrollTrigger: {
+    //         start: `top 0%`,
+    //         end: "bottom 60%",
+    //         scrub: 1,
+
+    //     },
+    // })
+
     gsap.from(".section-logos img", {
         opacity: 0,
         y: "+=200",
@@ -101,15 +132,46 @@ function main() {
         //duration: 2
     })
 
-    gsap.from(".feature", {
-        scale: 0.9,
+    gsap.from(".features", {
         opacity: 0,
-        y: "+=50",
+        scrollTrigger: {
+            trigger: ".features",
+            start: `top 80%`,
+            end: "50% 50%",
+            scrub: 1,
+            //pin: true
+            //ease: 'Linear'
+
+        },
+        //duration: 2
+    })
+
+    gsap.to(".feature-left", {
+        opacity: 0,
+        x: "-=250",
         stagger: 0.2,
         scrollTrigger: {
             trigger: ".features",
-            start: `top bottom`,
-            end: "10%",
+            start: `10% 0%`,
+            end: "bottom 0%",
+            scrub: 1,
+            //pin: true
+            //ease: 'Linear'
+
+        },
+        // ease: "Linear",
+        //duration: 2
+
+    })
+
+    gsap.to(".feature-right", {
+        opacity: 0,
+        x: "+=250",
+        stagger: 0.2,
+        scrollTrigger: {
+            trigger: ".features",
+            start: `10% 0%`,
+            end: "bottom 0%",
             scrub: 1,
             //pin: true
             //ease: 'Linear'
@@ -121,13 +183,13 @@ function main() {
 
     gsap.from(".testimonial-blockquote", {
         opacity: 0,
-        x: "+=200",
+        x: "+=100",
         stagger: 0.2,
         scrollTrigger: {
             trigger: ".testimonial",
             start: `top bottom`,
-            end: "10%",
-            scrub: 1,
+            end: "50% 50%",
+            scrub: 1.3,
             //pin: true
             //ease: 'Linear'
 
@@ -203,7 +265,7 @@ function main() {
     const color3 = 0xffffFF;
     const intensity3 = 1;
     const light3 = new THREE.PointLight(color3, intensity3, 10000);
-    light3.position.set(550, 0, 190);
+    light3.position.set(550, 0, 90);
     light3.castShadow = true;
     //Set up shadow properties for the light
     light3.shadow.mapSize.width = 1024;
@@ -216,7 +278,7 @@ function main() {
     const color2 = 0xffffFF;
     const intensity2 = 0.7;
     const light2 = new THREE.PointLight(color2, intensity2, 3000);
-    light2.position.set(550, 500, 590);
+    light2.position.set(550, 500, 190);
     // light2.castShadow = true;
     //Set up shadow properties for the light
     // light2.shadow.mapSize.width = 1024;
@@ -390,7 +452,7 @@ function main() {
         cube.rotation.z = cubeRotation.z;
 
         plane.position.y = scroll.y;
-        light3.position.y = scroll.y - 150;
+        light3.position.y = scroll.y - 900;
 
         camera.position.z = perspectiveObj.cameraZ;
         scene.rotation.y = perspectiveObj.sceneY;
