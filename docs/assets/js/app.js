@@ -221,7 +221,7 @@ function main() {
   ambientLight.position.set(100, 100, 400);
   scene.add(ambientLight);
   var color3 = 0xffffFF;
-  var intensity3 = 1;
+  var intensity3 = 0.8;
   var light3 = new three__WEBPACK_IMPORTED_MODULE_2__.PointLight(color3, intensity3, 10000);
   light3.position.set(550, 0, 90);
   light3.castShadow = true; //Set up shadow properties for the light
@@ -57201,8 +57201,8 @@ if ( typeof window !== 'undefined' ) {
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/app": 0,
-/******/ 			"css/app": 0
+/******/ 			"/web/assets/js/app": 0,
+/******/ 			"web/assets/css/app": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -57250,8 +57250,8 @@ if ( typeof window !== 'undefined' ) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./src/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./src/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["web/assets/css/app"], () => (__webpack_require__("./src/app.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["web/assets/css/app"], () => (__webpack_require__("./src/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

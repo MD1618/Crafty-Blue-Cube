@@ -263,7 +263,7 @@ function main() {
 
 
     const color3 = 0xffffFF;
-    const intensity3 = 1;
+    const intensity3 = 0.8;
     const light3 = new THREE.PointLight(color3, intensity3, 10000);
     light3.position.set(550, 0, 90);
     light3.castShadow = true;
